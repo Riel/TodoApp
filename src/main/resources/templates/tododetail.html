@@ -4,82 +4,86 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit todo</title>
+    <link rel="stylesheet" type="text/css" href="/detailstyle.css">
     <link href="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" rel="stylesheet"/>
 </head>
 <body class="container">
+
 <form action="#" th:action="@{|/todo/${todo.getId()}/edit|}" th:method="put" th:object="${todo}">
-    <div class="col-lg-12">
+    <div>
         <label class="col-lg-2" th:text="'Task number: ' + *{getId()}"></label>
     </div>
-    <div class="col-lg-12">
-        <label class="col-lg-2" th:text="'Created at: ' + *{getDisplayCreationDate()}"></label>
-    </div>
-    <div class="col-lg-12">
-        <label class="col-lg-2" for="title">Title</label>
-        <input class="col-lg-3" type="text" id="title" th:field="*{title}">
-    </div>
-    <div class="col-lg-12">
-        <label class="col-lg-2" for="description">Description</label>
-        <textarea class="col-lg-3" id="description" th:field="*{description}"></textarea>
-    </div>
-    <div class="col-lg-12">
-        <label class="col-lg-2" for="date">Due date</label>
-        <input class="col-lg-3" type="date" id="date" th:field="*{dueDate}" required>
-    </div>
-    <div class="col-lg-12">
-        <label class="col-lg-2">Owner</label>
-        <select name="ownerID">
-            <option th:each="owner : ${owners}"
-                    th:text="${owner.getName()}"
-                    th:value="${owner.getId()}"
-                    th:selected="${todo.getOwner().getName().equals(owner.getName())}">
-            </option>
-        </select>
-    </div>
-    <div class="col-lg-12">
-        <label class="col-lg-2">Priority</label>
-        <select name="prio">
-            <option th:each="priority : ${priorities}"
-                    th:text="${priority}"
-                    th:value="${priority}"
-                    th:selected="${todo.getPrioName().equals(priority)}">
-            </option>
-        </select>
-    </div>
-    <!-- //TODO: can use fragments here? -->
-    <div class="col-lg-12">
-        <label class="col-lg-2">Status</label>
-        <select name="status">
-            <option th:each="status : ${statuses}"
-                    th:text="${status}"
-                    th:value="${status}"
-                    th:selected="${todo.getStatusName().equals(status)}">
-            </option>
-        </select>
-    </div>
-    <div class="col-lg-12">
-        <label class="col-lg-2">Context</label>
-        <select name="context">
-            <option th:each="context : ${contexts}"
-                    th:text="${context}"
-                    th:value="${context}"
-                    th:selected="${todo.getContext().equals(context)}">
-            </option>
-        </select>
-    </div>
-    <div class="col-lg-12">
-        <label class="col-lg-2">Project</label>
-        <select name="pproject">
-            <option th:each="project : ${projects}"
-                    th:text="${project}"
-                    th:value="${project}"
-                    th:selected="${todo.getProject().equals(project)}">
-            </option>
-        </select>
-    </div>
 
-    <div class="col-lg-12">
-        <input class="col-lg-1 btn btn-warning" style="margin-right: 20px" type="submit" value="Submit">
+    <table >
+        <tr>
+            <td><label class="col-lg-2" th:text="'Created at: ' + *{getDisplayCreationDate()}"></label></td>
+        </tr>
+        <tr>
+            <td><label class="col-lg-2" for="title" style="width: 60px">Title</label></td>
+            <td><input type="text" id="title" th:field="*{title}"></td>
+        </tr>
+        <tr>
+            <td><label class="col-lg-2" for="description">Description</label></td>
+            <td><textarea  id="description" th:field="*{description}"></textarea></td>
+        </tr>
+        <tr>
+            <td><label class="col-lg-2" for="date">Due date</label></td>
+            <td><input type="date" id="date" th:field="*{dueDate}" required></td>
+        </tr>
+        <tr>
+            <td><label class="col-lg-2">Owner</label></td>
+            <td><select name="ownerID">
+                <option th:each="owner : ${owners}"
+                        th:text="${owner.getName()}"
+                        th:value="${owner.getId()}"
+                        th:selected="${todo.getOwner().getName().equals(owner.getName())}">
+                </option>
+            </select></td>
+        </tr>
+        <tr>
+            <td><label class="col-lg-2">Priority</label></td>
+            <td><select name="prio">
+                <option th:each="priority : ${priorities}"
+                        th:text="${priority}"
+                        th:value="${priority}"
+                        th:selected="${todo.getPrioName().equals(priority)}">
+                </option>
+            </select></td>
+        </tr>
+        <tr>
+            <td><label class="col-lg-2">Status</label></td>
+            <td><select name="status">
+                <option th:each="status : ${statuses}"
+                        th:text="${status}"
+                        th:value="${status}"
+                        th:selected="${todo.getStatusName().equals(status)}">
+                </option>
+            </select></td>
+        </tr>
+        <tr>
+            <td><label class="col-lg-2">Context</label></td>
+            <td><select name="context">
+                <option th:each="context : ${contexts}"
+                        th:text="${context}"
+                        th:value="${context}"
+                        th:selected="${todo.getContext().equals(context)}">
+                </option>
+            </select></td>
+        </tr>
+        <tr>
+            <td><label class="col-lg-2">Project</label></td>
+            <td><select name="pproject">
+                <option th:each="project : ${projects}"
+                        th:text="${project}"
+                        th:value="${project}"
+                        th:selected="${todo.getProject().equals(project)}">
+                </option>
+            </select></td>
+        </tr>
+    </table>
+
+    <div>
+        <input class="col-lg-1 btn btn-warning" style="margin-right: 20px" type="submit" value="Save">
         <a class="col-lg-1 btn btn-warning" style="background-color: gray; border-color: gray; text-decoration: none; color: white" th:href="'/todo/'">Cancel</a>
     </div>
 </form>
