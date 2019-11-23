@@ -60,9 +60,4 @@ public class Owner {
     newTodo.setOwner(this);
     todos.add(newTodo);
   }
-
-  public void deletTodo(Todo todo){
-    todo.setOwner(null);
-    todos.remove(todo);
-  }
 }

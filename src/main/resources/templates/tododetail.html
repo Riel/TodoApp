@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit todo</title>
+    <link href="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" rel="stylesheet"/>
+    <!--// TODO: remove this reference -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+</head>
+<body class="container">
+<form action="#" th:action="@{|/todo/${todo.getId()}/edit|}" th:method="put" th:object="${todo}">
+    <div class="col-lg-12">
+        <label class="col-lg-2" th:text="'Task number: ' + *{getId()}"></label>
+    </div>
+    <div class="col-lg-12">
+        <label class="col-lg-2" th:text="'Created at: ' + *{getDisplayCreationDate()}"></label>
+    </div>
+    <div class="col-lg-12">
+        <label class="col-lg-2" for="title">Title</label>
+        <input class="col-lg-3" type="text" id="title" th:field="*{title}">
+    </div>
+    <div class="col-lg-12">
+        <label class="col-lg-2" for="description">Description</label>
+        <input class="col-lg-3" type="text" id="description" th:field="*{description}">
+    </div>
+    <div class="col-lg-12">
+        <label class="col-lg-2" for="date">Due date</label>
+        <input class="col-lg-3" type="date" id="date" th:field="*{dueDate}" required>
+    </div>
+    <div class="col-lg-12">
+        <label class="col-lg-2">Owner</label>
+        <select name="ownerID">
+            <option th:each="owner : ${owners}"
+                    th:text="${owner.getName()}"
+                    th:value="${owner.getId()}"
+                    th:selected="${todo.getOwner().getName().equals(owner.getName())}">
+            </option>
+        </select>
+    </div>
+    <div class="col-lg-12">
+        <label class="col-lg-2">Priority</label>
+        <select name="prio">
+            <option th:each="priority : ${priorities}"
+                    th:text="${priority}"
+                    th:value="${priority}"
+                    th:selected="${todo.getPrioName().equals(priority)}">
+            </option>
+        </select>
+    </div>
+    <!-- //TODO: can use fragments here? -->
+    <div class="col-lg-12">
+        <label class="col-lg-2">Status</label>
+        <select name="status">
+            <option th:each="status : ${statuses}"
+                    th:text="${status}"
+                    th:value="${status}"
+                    th:selected="${todo.getStatusName().equals(status)}">
+            </option>
+        </select>
+    </div>
+    <div class="col-lg-12">
+        <label class="col-lg-2">Context</label>
+        <select name="context">
+            <option th:each="context : ${contexts}"
+                    th:text="${context}"
+                    th:value="${context}"
+                    th:selected="${todo.getContext().equals(context)}">
+            </option>
+        </select>
+    </div>
+    <div class="col-lg-12">
+        <label class="col-lg-2">Project</label>
+        <select name="pproject">
+            <option th:each="project : ${projects}"
+                    th:text="${project}"
+                    th:value="${project}"
+                    th:selected="${todo.getProject().equals(project)}">
+            </option>
+        </select>
+    </div>
+
+    <div class="col-lg-12">
+        <input class="col-lg-1 btn btn-warning" style="margin-right: 20px" type="submit" value="Submit">
+        <a class="col-lg-1 btn btn-warning" style="background-color: gray; border-color: gray; text-decoration: none; color: white" th:href="'/todo/'">Cancel</a>
+    </div>
+</form>
+<script src="/webjars/jquery/1.11.1/jquery.min.js"></script>
+<script src="/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
+</body>
+</html>

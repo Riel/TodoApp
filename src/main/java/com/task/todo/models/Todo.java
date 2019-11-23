@@ -4,6 +4,7 @@ import com.task.todo.enums.Priority;
 import com.task.todo.enums.Status;
 
 import javax.persistence.*;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -17,6 +18,8 @@ public class Todo {
   private Long id;
   private String title;
   private String description;
+  private String project;
+  private String context;
   private Date creationDate;
   private Date dueDate;
   private Priority prio;
@@ -25,6 +28,9 @@ public class Todo {
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "owner_id")
   private Owner owner;
+
+  @Transient
+  private final String DATE_FORMAT = "yyyy/MM/dd";
   //endregion
 
 
@@ -32,14 +38,16 @@ public class Todo {
     creationDate = new Date();
   }
 
-  public Todo(String title, String description, Date dueDate, Priority prio, Status status, Owner owner) {
-    this(title, description, dueDate, prio, status);
+  public Todo(String title, String description, String project, String context, Date dueDate, Priority prio, Status status, Owner owner) {
+    this(title, description, project, context, dueDate, prio, status);
     this.owner = owner;
   }
 
-  public Todo(String title, String description, Date dueDate, Priority prio, Status status) {
+  public Todo(String title, String description, String project, String context, Date dueDate, Priority prio, Status status) {
     this.title = title;
     this.description = description;
+    this.project = project;
+    this.context = context;
     this.creationDate = new Date();
     this.dueDate = dueDate;
     this.prio = prio;
@@ -69,6 +77,22 @@ public class Todo {
 
   public void setDescription(String description) {
     this.description = description;
+  }
+
+  public String getProject() {
+    return project;
+  }
+
+  public void setProject(String project) {
+    this.project = project;
+  }
+
+  public String getContext() {
+    return context;
+  }
+
+  public void setContext(String context) {
+    this.context = context;
   }
 
   public Date getCreationDate() {
@@ -111,4 +135,25 @@ public class Todo {
     this.owner = owner;
   }
   //endregion
+
+  public String getDisplayDueDate(){
+    return getFormattedDate(dueDate);
+  }
+
+  public String getDisplayCreationDate(){
+    return getFormattedDate(creationDate);
+  }
+
+  private String getFormattedDate(Date date){
+    DateFormat outputFormatter = new SimpleDateFormat(DATE_FORMAT);
+    return outputFormatter.format(date);
+  }
+
+  public String getPrioName(){
+    return prio.toString();
+  }
+
+  public String getStatusName(){
+    return status.toString();
+  }
 }
