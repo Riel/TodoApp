@@ -1,0 +1,10 @@
+table tr td{
+    height: 10px !important;
+    padding:0px !important;
+    margin: 4px !important;
+    vertical-align: center !important;
+}
+
+.btn {
+    padding: 2px !important;
+}

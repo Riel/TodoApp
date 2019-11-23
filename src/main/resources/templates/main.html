@@ -4,10 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>IrányítOM</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
     <link href="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" rel="stylesheet"/>
-    <!--// TODO: remove this reference -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
-          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 </head>
 
 <body class="container">
@@ -70,7 +68,7 @@
         <td class="col-lg-1 text-center">
             <a class="btn btn-info" th:href="@{|/todo/${todo.getId()}/edit|}">Edit</a>
         </td>
-        <td class="col-lg-1 text-center">
+        <td class="col-lg-1 text-center" data-th-marginheight="0">
             <form action="#" th:action="@{|/todo/${todo.getId()}/delete|}" th:method="delete">
                 <input class="btn btn-danger" type="submit" value="Delete">
             </form>

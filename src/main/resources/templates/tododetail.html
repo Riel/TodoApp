@@ -5,9 +5,6 @@
     <meta charset="UTF-8">
     <title>Edit todo</title>
     <link href="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" rel="stylesheet"/>
-    <!--// TODO: remove this reference -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
-          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 </head>
 <body class="container">
 <form action="#" th:action="@{|/todo/${todo.getId()}/edit|}" th:method="put" th:object="${todo}">
@@ -23,7 +20,7 @@
     </div>
     <div class="col-lg-12">
         <label class="col-lg-2" for="description">Description</label>
-        <input class="col-lg-3" type="text" id="description" th:field="*{description}">
+        <textarea class="col-lg-3" id="description" th:field="*{description}"></textarea>
     </div>
     <div class="col-lg-12">
         <label class="col-lg-2" for="date">Due date</label>
