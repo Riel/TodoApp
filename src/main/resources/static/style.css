@@ -5,6 +5,10 @@ table tr td{
     vertical-align: center !important;
 }
 
+th {
+    padding:4px 0px!important;
+}
+
 .btn {
     padding: 2px !important;
 }

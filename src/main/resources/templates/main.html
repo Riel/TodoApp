@@ -40,7 +40,9 @@
         <td class="col-lg-2">
             <a style="color: black"
                th:href="@{|/todo/${todo.getId()}/details|}"
-               th:text="${todo.getTitle()}">
+               th:text="${todo.getTitle()}"
+               th:title="${todo.getDescription()}"
+            >
             </a></td>
         <td class="col-lg-1">
             <a style="color: black"

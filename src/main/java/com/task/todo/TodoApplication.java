@@ -52,8 +52,8 @@ public class TodoApplication implements CommandLineRunner {
     Date dueDate2 = format.parse("2019/12/13");
     Date date2 = format.parse(format.format(dueDate2));
 
-    Todo t = new Todo("Write todo app", "Make it look nice", "Office", "Offline", date, Priority.HIGH, Status.PROGRESS);
-    Todo t2 = new Todo("Cook cake", "Make it taste good", "Home", "Online", date2, Priority.LOW, Status.NOT_STARTED);
+    Todo t = new Todo("Write todo app", "Make it look nice", "Office", "Offline", date2, date, Priority.HIGH, Status.PROGRESS);
+    Todo t2 = new Todo("Cook cake", "Make it taste good", "Home", "Online", date, date2, Priority.LOW, Status.NOT_STARTED);
 
     a.addTodo(t);
     ownerRepository.save(a);
@@ -61,6 +61,7 @@ public class TodoApplication implements CommandLineRunner {
     ownerRepository.save(b);
 
     Iterable<Owner> restored = ownerRepository.findAll();
+    Owner o = ownerRepository.findById(1L).get();
     System.out.println(restored);
 
 

@@ -9,60 +9,48 @@
 </head>
 <body class="container">
 
-<form action="#" th:action="@{|/todo/${todo.getId()}/edit|}" th:method="put" th:object="${todo}">
+<form action="#" th:action="@{|/todo/${todo.getId()}/edit|}" method="post" th:object="${todo}">
     <div>
         <label class="col-lg-2" th:text="'Task number: ' + *{getId()}"></label>
     </div>
 
     <table >
         <tr>
-            <td><label class="col-lg-2" th:text="'Created at: ' + *{getDisplayCreationDate()}"></label></td>
+            <td><label class="col-lg-2" th:text="'Created at: ' + *{getCreationDate()}"></label></td>
         </tr>
         <tr>
-            <td><label class="col-lg-2" for="title" style="width: 60px">Title</label></td>
+            <td><label class="col-lg-2" for="title" style="width: 60px">Title: </label></td>
             <td><input type="text" id="title" th:field="*{title}"></td>
         </tr>
         <tr>
-            <td><label class="col-lg-2" for="description">Description</label></td>
+            <td><label class="col-lg-2" for="description">Description: </label></td>
             <td><textarea  id="description" th:field="*{description}"></textarea></td>
         </tr>
         <tr>
-            <td><label class="col-lg-2" for="date">Due date</label></td>
-            <td><input type="date" id="date" th:field="*{dueDate}" required></td>
-        </tr>
-        <tr>
-            <td><label class="col-lg-2">Owner</label></td>
-            <td><select name="ownerID">
+            <td><label class="col-lg-2">Owner: </label></td>
+            <!-- th:field does not work with select:
+             https://www.baeldung.com/thymeleaf-select-option -->
+            <td><select name=owner>
                 <option th:each="owner : ${owners}"
                         th:text="${owner.getName()}"
                         th:value="${owner.getId()}"
-                        th:selected="${todo.getOwner().getName().equals(owner.getName())}">
+                        th:selected="${todo.getOwner().equals(owner.getName())}">
                 </option>
             </select></td>
         </tr>
         <tr>
-            <td><label class="col-lg-2">Priority</label></td>
-            <td><select name="prio">
-                <option th:each="priority : ${priorities}"
-                        th:text="${priority}"
-                        th:value="${priority}"
-                        th:selected="${todo.getPrioName().equals(priority)}">
+            <td><label class="col-lg-2">Project: </label></td>
+            <td><select name="project">
+                <option th:each="project : ${projects}"
+                        th:text="${project}"
+                        th:value="${project}"
+                        th:selected="${todo.getProject().equals(project)}">
                 </option>
             </select></td>
         </tr>
         <tr>
-            <td><label class="col-lg-2">Status</label></td>
-            <td><select name="status">
-                <option th:each="status : ${statuses}"
-                        th:text="${status}"
-                        th:value="${status}"
-                        th:selected="${todo.getStatusName().equals(status)}">
-                </option>
-            </select></td>
-        </tr>
-        <tr>
-            <td><label class="col-lg-2">Context</label></td>
-            <td><select name="context">
+            <td><label class="col-lg-2">Context: </label></td>
+            <td><select name="context" >
                 <option th:each="context : ${contexts}"
                         th:text="${context}"
                         th:value="${context}"
@@ -71,12 +59,28 @@
             </select></td>
         </tr>
         <tr>
-            <td><label class="col-lg-2">Project</label></td>
-            <td><select name="pproject">
-                <option th:each="project : ${projects}"
-                        th:text="${project}"
-                        th:value="${project}"
-                        th:selected="${todo.getProject().equals(project)}">
+            <td><label class="col-lg-2" for="date">Due date: </label></td>
+            <td><input type="text" id="date" th:field="*{dueDate}"
+                       placeholder="yyyy.mm.dd." pattern="\d{4}/\d{2}/\d{2}"
+                       required></td>
+        </tr>
+        <tr>
+            <td><label class="col-lg-2">Priority: </label></td>
+            <td><select name="prio">
+                <option th:each="priority : ${priorities}"
+                        th:text="${priority}"
+                        th:value="${priority}"
+                        th:selected="${todo.getPrio().equals(priority)}">
+                </option>
+            </select></td>
+        </tr>
+        <tr>
+            <td><label class="col-lg-2">Status: </label></td>
+            <td><select name="status">
+                <option th:each="status : ${statuses}"
+                        th:text="${status}"
+                        th:value="${status}"
+                        th:selected="${todo.getStatus().equals(status)}">
                 </option>
             </select></td>
         </tr>
@@ -84,7 +88,7 @@
 
     <div>
         <input class="col-lg-1 btn btn-warning" style="margin-right: 20px" type="submit" value="Save">
-        <a class="col-lg-1 btn btn-warning" style="background-color: gray; border-color: gray; text-decoration: none; color: white" th:href="'/todo/'">Cancel</a>
+        <a class="col-lg-1 btn btn-warning" style="background-color: gray; border-color: gray; text-decoration: none; color: white" th:href="'/'">Cancel</a>
     </div>
 </form>
 <script src="/webjars/jquery/1.11.1/jquery.min.js"></script>

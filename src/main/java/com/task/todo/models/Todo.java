@@ -2,10 +2,7 @@ package com.task.todo.models;
 
 import com.task.todo.enums.Priority;
 import com.task.todo.enums.Status;
-
 import javax.persistence.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -28,9 +25,6 @@ public class Todo {
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "owner_id")
   private Owner owner;
-
-  @Transient
-  private final String DATE_FORMAT = "yyyy/MM/dd";
   //endregion
 
 
@@ -38,17 +32,17 @@ public class Todo {
     creationDate = new Date();
   }
 
-  public Todo(String title, String description, String project, String context, Date dueDate, Priority prio, Status status, Owner owner) {
-    this(title, description, project, context, dueDate, prio, status);
+  public Todo(String title, String description, String project, String context, Date creationDate, Date dueDate, Priority prio, Status status, Owner owner) {
+    this(title, description, project, context, creationDate, dueDate, prio, status);
     this.owner = owner;
   }
 
-  public Todo(String title, String description, String project, String context, Date dueDate, Priority prio, Status status) {
+  public Todo(String title, String description, String project, String context, Date creationDate,  Date dueDate, Priority prio, Status status) {
     this.title = title;
     this.description = description;
     this.project = project;
     this.context = context;
-    this.creationDate = new Date();
+    this.creationDate = creationDate;
     this.dueDate = dueDate;
     this.prio = prio;
     this.status = status;
@@ -137,23 +131,10 @@ public class Todo {
   //endregion
 
   public String getDisplayDueDate(){
-    return getFormattedDate(dueDate);
+    return Utilities.dateToString(dueDate);
   }
 
   public String getDisplayCreationDate(){
-    return getFormattedDate(creationDate);
-  }
-
-  private String getFormattedDate(Date date){
-    DateFormat outputFormatter = new SimpleDateFormat(DATE_FORMAT);
-    return outputFormatter.format(date);
-  }
-
-  public String getPrioName(){
-    return prio.toString();
-  }
-
-  public String getStatusName(){
-    return status.toString();
+    return Utilities.dateToString(creationDate);
   }
 }
