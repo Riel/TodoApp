@@ -12,3 +12,15 @@ th {
 .btn {
     padding: 2px !important;
 }
+
+.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+    background-color: lightgrey;
+}
+
+.table-striped > tbody > tr:nth-child(2n) > td, .table-striped > tbody > tr:nth-child(2n) > th {
+    background-color: darkgray;
+}
+
+.table-hover tbody tr:hover td {
+    background-color: whitesmoke;
+}
