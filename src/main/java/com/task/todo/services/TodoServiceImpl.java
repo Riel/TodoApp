@@ -85,7 +85,6 @@ public class TodoServiceImpl implements TodoService {
 
   @Override
   public TodoDTO convertTodoToDTO(Todo todo) {
-
     return converter.concertDTOToDTO(todo);
   }
 }

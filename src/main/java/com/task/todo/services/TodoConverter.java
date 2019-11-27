@@ -22,15 +22,15 @@ public class TodoConverter {
       dueDate = new Date();
     }
 
-    Todo todo =new Todo(
+    Todo todo = new Todo(
             dto.getTitle(),
             dto.getDescription(),
             dto.getProject(),
             dto.getContext(),
             creationDate,
             dueDate,
-            Priority.getByDisplayName(dto.getPrio()),
-            Status.getByDisplayName(dto.getStatus()));
+            dto.getPrio(),
+            dto.getStatus());
 
     todo.setId(dto.getId());
 
@@ -46,8 +46,8 @@ public class TodoConverter {
             todo.getContext(),
             todo.getDisplayCreationDate(),
             todo.getDisplayDueDate(),
-            todo.getPrio().toString(),
-            todo.getStatus().toString(),
+            todo.getPrio(),
+            todo.getStatus(),
             todo.getOwner().getName());
 
     return dto;

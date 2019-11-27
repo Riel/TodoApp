@@ -1,5 +1,7 @@
 package com.task.todo.controllers;
 
+import com.task.todo.enums.Priority;
+import com.task.todo.enums.Status;
 import com.task.todo.models.Todo;
 import com.task.todo.models.TodoDTO;
 import com.task.todo.services.TodoService;
@@ -33,8 +35,8 @@ public class TodoController {
     TodoDTO dto = todoService.convertTodoToDTO(todo);
     model.addAttribute("todo", dto);
     model.addAttribute("owners", todoService.getOwners());
-    model.addAttribute("priorities", todoService.getPriorities());
-    model.addAttribute("statuses", todoService.getStatuses());
+    model.addAttribute("priorities", Priority.values());
+    model.addAttribute("statuses", Status.values());
     model.addAttribute("contexts", todoService.getContexts());
     model.addAttribute("projects", todoService.getProjects());
     return "tododetail";

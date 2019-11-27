@@ -69,7 +69,7 @@
             <td><select name="prio">
                 <option th:each="priority : ${priorities}"
                         th:text="${priority}"
-                        th:value="${priority}"
+                        th:value="${priority.name()}"
                         th:selected="${todo.getPrio().equals(priority)}">
                 </option>
             </select></td>
@@ -79,7 +79,7 @@
             <td><select name="status">
                 <option th:each="status : ${statuses}"
                         th:text="${status}"
-                        th:value="${status}"
+                        th:value="${status.name()}"
                         th:selected="${todo.getStatus().equals(status)}">
                 </option>
             </select></td>

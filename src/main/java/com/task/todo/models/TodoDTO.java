@@ -1,5 +1,8 @@
 package com.task.todo.models;
 
+import com.task.todo.enums.Priority;
+import com.task.todo.enums.Status;
+
 public class TodoDTO {
 
   //region Fields
@@ -10,15 +13,15 @@ public class TodoDTO {
   private String context;
   private String creationDate;
   private String dueDate;
-  private String prio;
-  private String status;
+  private Priority prio;
+  private Status status;
   private String owner;
   //endregion
 
   public TodoDTO(){
   }
 
-  public TodoDTO(Long id, String title, String description, String project, String context, String creationDate, String dueDate, String prio, String status, String owner) {
+  public TodoDTO(Long id, String title, String description, String project, String context, String creationDate, String dueDate, Priority prio, Status status, String owner) {
     this.id = id;
     this.title = title;
     this.description = description;
@@ -88,19 +91,19 @@ public class TodoDTO {
     this.dueDate = dueDate;
   }
 
-  public String getPrio() {
+  public Priority getPrio() {
     return prio;
   }
 
-  public void setPrio(String prio) {
+  public void setPrio(Priority prio) {
     this.prio = prio;
   }
 
-  public String getStatus() {
+  public Status getStatus() {
     return status;
   }
 
-  public void setStatus(String status) {
+  public void setStatus(Status status) {
     this.status = status;
   }
 
