@@ -2,7 +2,10 @@ package com.task.todo.models;
 
 import com.task.todo.enums.Priority;
 import com.task.todo.enums.Status;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -17,8 +20,10 @@ public class Todo {
   private String description;
   private String project;
   private String context;
-  private Date creationDate;
-  private Date dueDate;
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  private LocalDate creationDate;
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  private LocalDate dueDate;
   private Priority prio;
   private Status status;
 
@@ -29,15 +34,15 @@ public class Todo {
 
 
   public Todo() {
-    creationDate = new Date();
+  creationDate = LocalDate.now();
   }
 
-  public Todo(String title, String description, String project, String context, Date creationDate, Date dueDate, Priority prio, Status status, Owner owner) {
+  public Todo(String title, String description, String project, String context, LocalDate creationDate, LocalDate dueDate, Priority prio, Status status, Owner owner) {
     this(title, description, project, context, creationDate, dueDate, prio, status);
     this.owner = owner;
   }
 
-  public Todo(String title, String description, String project, String context, Date creationDate,  Date dueDate, Priority prio, Status status) {
+  public Todo(String title, String description, String project, String context, LocalDate creationDate,  LocalDate dueDate, Priority prio, Status status) {
     this.title = title;
     this.description = description;
     this.project = project;
@@ -89,19 +94,19 @@ public class Todo {
     this.context = context;
   }
 
-  public Date getCreationDate() {
+  public LocalDate getCreationDate() {
     return creationDate;
   }
 
-  public void setCreationDate(Date creationDate) {
+  public void setCreationDate(LocalDate creationDate) {
     this.creationDate = creationDate;
   }
 
-  public Date getDueDate() {
+  public LocalDate getDueDate() {
     return dueDate;
   }
 
-  public void setDueDate(Date dueDate) {
+  public void setDueDate(LocalDate dueDate) {
     this.dueDate = dueDate;
   }
 

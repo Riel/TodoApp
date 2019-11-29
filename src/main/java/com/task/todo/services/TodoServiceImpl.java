@@ -4,7 +4,6 @@ import com.task.todo.enums.Priority;
 import com.task.todo.enums.Status;
 import com.task.todo.models.Owner;
 import com.task.todo.models.Todo;
-import com.task.todo.models.TodoDTO;
 import com.task.todo.repositories.SettingsRepository;
 import com.task.todo.repositories.OwnerRepository;
 import com.task.todo.repositories.TodoRepository;
@@ -21,14 +20,12 @@ public class TodoServiceImpl implements TodoService {
   private OwnerRepository ownerRepository;
   private TodoRepository todoRepository;
   private SettingsRepository contextRepository;
-  private TodoConverter converter;
 
   @Autowired
   public TodoServiceImpl(OwnerRepository ownerRepository, TodoRepository todoRepository, SettingsRepository contextRepository) {
     this.ownerRepository = ownerRepository;
     this.todoRepository = todoRepository;
     this.contextRepository = contextRepository;
-    this.converter = new TodoConverter();
   }
 
   @Override
@@ -70,21 +67,5 @@ public class TodoServiceImpl implements TodoService {
   public Iterable<String> getProjects() {
     // TODO: handle optional
     return contextRepository.findById(1L).get().getProjects();
-  }
-
-  @Override
-  public Todo convertDTOToTodo(TodoDTO dto) {
-    //TODO: handle errors
-    Todo originalTodo = todoRepository.findById(dto.getId()).get();
-    Long ownerID = Long.parseLong(dto.getOwner());
-    Owner owner = ownerRepository.findById(ownerID).get();
-    Todo todo = converter.convertDTOToTodo(dto, originalTodo.getCreationDate());
-    todo.setOwner(owner);
-    return todo;
-  }
-
-  @Override
-  public TodoDTO convertTodoToDTO(Todo todo) {
-    return converter.concertDTOToDTO(todo);
   }
 }

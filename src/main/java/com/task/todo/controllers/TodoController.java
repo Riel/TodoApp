@@ -3,7 +3,6 @@ package com.task.todo.controllers;
 import com.task.todo.enums.Priority;
 import com.task.todo.enums.Status;
 import com.task.todo.models.Todo;
-import com.task.todo.models.TodoDTO;
 import com.task.todo.services.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,8 +31,7 @@ public class TodoController {
   @RequestMapping(path = "/todo/{id}/edit", method = RequestMethod.GET)
   public String showEditForm(Model model, @PathVariable Long id) {
     Todo todo = todoService.getTodo(id);
-    TodoDTO dto = todoService.convertTodoToDTO(todo);
-    model.addAttribute("todo", dto);
+    model.addAttribute("todo", todo);
     model.addAttribute("owners", todoService.getOwners());
     model.addAttribute("priorities", Priority.values());
     model.addAttribute("statuses", Status.values());
@@ -43,8 +41,8 @@ public class TodoController {
   }
 
   @RequestMapping(path = "/todo/{id}/edit", method = RequestMethod.POST)
-  public String updateTodo(@PathVariable Long id, @ModelAttribute TodoDTO dto) {
-    Todo todo = todoService.convertDTOToTodo(dto);
+  public String updateTodo(@PathVariable Long id, @ModelAttribute Todo todo) {
+    todo.setId(id);
     todoService.saveTodo(todo);
     return "redirect:/";
   }

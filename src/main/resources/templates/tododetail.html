@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit todo</title>
-    <link rel="stylesheet" type="text/css" href="/detailstyle.css">
-    <link href="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" rel="stylesheet"/>
+    <!--<link rel="stylesheet" type="text/css" href="/detailstyle.css">-->
+    <link href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"/>
 </head>
 <body class="container">
 
@@ -34,7 +34,7 @@
                 <option th:each="owner : ${owners}"
                         th:text="${owner.getName()}"
                         th:value="${owner.getId()}"
-                        th:selected="${todo.getOwner().equals(owner.getName())}">
+                        th:selected="${todo.getOwner().getName().equals(owner.getName())}">
                 </option>
             </select></td>
         </tr>
@@ -60,7 +60,7 @@
         </tr>
         <tr>
             <td><label class="col-lg-2" for="date">Due date: </label></td>
-            <td><input type="text" id="date" th:field="*{dueDate}"
+            <td><input type="date" id="date" th:field="*{dueDate}"
                        placeholder="yyyy.mm.dd." pattern="\d{4}/\d{2}/\d{2}"
                        required></td>
         </tr>
@@ -91,7 +91,7 @@
         <a class="col-lg-1 btn btn-warning" style="background-color: gray; border-color: gray; text-decoration: none; color: white" th:href="'/'">Cancel</a>
     </div>
 </form>
-<script src="/webjars/jquery/1.11.1/jquery.min.js"></script>
-<script src="/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
+<script src="/webjars/jquery/3.3.1/jquery.min.js"></script>
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.bundle.js"></script>
 </body>
 </html>

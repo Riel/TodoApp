@@ -13,7 +13,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @SpringBootApplication
@@ -39,26 +42,30 @@ public class TodoApplication implements CommandLineRunner {
   public void run(String... args) throws Exception {
     Owner a = new Owner();
     a.setEmail("endre@gmail.hu");
-    a.setName("Endre");
+    a.setName("Riel");
 
     Owner b = new Owner();
     b.setEmail("ferenc@gmail.hu");
-    b.setName("Ferenc");
+    b.setName("Barna");
 
-    SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
-    Date dueDate = format.parse("2019/12/03");
-    Date date = format.parse(format.format(dueDate));
+    DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    LocalDate dueDate = LocalDate.parse("2019-12-03", outputFormatter);
+    LocalDate date = LocalDate.now();
 
-    Date dueDate2 = format.parse("2019/12/13");
-    Date date2 = format.parse(format.format(dueDate2));
+    LocalDate dueDate2 = LocalDate.parse("2019-12-13", outputFormatter);
+    LocalDate date2 = LocalDate.now();
 
-    Todo t = new Todo("Write todo app", "Make it look nice", "Office", "Offline", date2, date, Priority.HIGH, Status.PROGRESS);
-    Todo t2 = new Todo("Cook cake", "Make it taste good", "Home", "Online", date, date2, Priority.LOW, Status.NOT_STARTED);
+    Todo t = new Todo("Update todo app style", "Make it look nice", "KD", "Online", date2, dueDate2, Priority.HIGH, Status.PROGRESS);
+    Todo t2 = new Todo("Finalize orientation exam", "Make it taste good", "GFA", "Online", date, dueDate, Priority.LOW, Status.NOT_STARTED);
+    Todo t3 = new Todo("Make new invitation", "With dates starting from 2020 February", "KD", "Computer", date, dueDate, Priority.LOW, Status.NOT_STARTED);
 
     a.addTodo(t);
+    a.addTodo(t3);
     ownerRepository.save(a);
     b.addTodo(t2);
+
     ownerRepository.save(b);
+
 
     Iterable<Owner> restored = ownerRepository.findAll();
     Owner o = ownerRepository.findById(1L).get();
@@ -67,10 +74,11 @@ public class TodoApplication implements CommandLineRunner {
 
     Setting s = new Setting();
     s.addContext("Offline");
+    s.addContext("Shopping");
+    s.addContext("Computer");
     s.addContext("Online");
-    s.addContext("With Thomas");
     s.addProject("GFA");
-    s.addProject("Office");
+    s.addProject("KD");
     s.addProject("Home");
 
     settingRepository.save(s);
