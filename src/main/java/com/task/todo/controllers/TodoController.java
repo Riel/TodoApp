@@ -59,14 +59,7 @@ public class TodoController {
     return todo;
   }
 
-  private void addTodoAttributes(Model model, Todo todo) {
-    model.addAttribute("todo", todo);
-    model.addAttribute("owners", todoService.getOwners());
-    model.addAttribute("priorities", Priority.values());
-    model.addAttribute("statuses", Status.values());
-    model.addAttribute("contexts", todoService.getContexts());
-    model.addAttribute("projects", todoService.getProjects());
-  }
+
 
   @RequestMapping(path = "/todo/add", method = RequestMethod.POST)
   public String addTodo(@ModelAttribute Todo todo) {
@@ -86,5 +79,14 @@ public class TodoController {
     todo.setStatus(Status.FINISHED);
     todoService.saveTodo(todo);
     return "redirect:/";
+  }
+
+  private void addTodoAttributes(Model model, Todo todo) {
+    model.addAttribute("todo", todo);
+    model.addAttribute("owners", todoService.getOwners());
+    model.addAttribute("priorities", Priority.values());
+    model.addAttribute("statuses", Status.values());
+    model.addAttribute("contexts", todoService.getContexts());
+    model.addAttribute("projects", todoService.getProjects());
   }
 }

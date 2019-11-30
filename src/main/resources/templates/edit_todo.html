@@ -20,7 +20,7 @@
     <table>
         <tr>
             <td><label class="col-lg-2" for="title" style="width: 60px; color: lightgray">Title: </label></td>
-            <td><input type="text" id="title" th:field="*{title}"></td>
+            <td><input type="text" id="title" th:field="*{title}" required></td>
         </tr>
         <tr>
             <td><label style="color: lightgray" class="col-lg-2" for="description">Description: </label></td>
@@ -30,7 +30,7 @@
             <td><label style="color: lightgray" class="col-lg-2">Owner: </label></td>
             <!-- th:field does not work with select:
              https://www.baeldung.com/thymeleaf-select-option -->
-            <td><select name=owner>
+            <td><select name=owner required>
                 <option th:each="owner : ${owners}"
                         th:text="${owner.getName()}"
                         th:value="${owner.getId()}"
@@ -40,7 +40,7 @@
         </tr>
         <tr>
             <td><label style="color: lightgray" class="col-lg-2">Project: </label></td>
-            <td><select name="project">
+            <td><select name="project" required>
                 <option th:each="project : ${projects}"
                         th:text="${project}"
                         th:value="${project}"
@@ -50,7 +50,7 @@
         </tr>
         <tr>
             <td><label style="color: lightgray" class="col-lg-2">Context: </label></td>
-            <td><select name="context" >
+            <td><select name="context" required>
                 <option th:each="context : ${contexts}"
                         th:text="${context}"
                         th:value="${context}"
@@ -66,7 +66,7 @@
         </tr>
         <tr>
             <td><label style="color: lightgray" class="col-lg-2">Priority: </label></td>
-            <td><select name="prio">
+            <td><select name="prio" required>
                 <option th:each="priority : ${priorities}"
                         th:text="${priority}"
                         th:value="${priority.name()}"
@@ -76,7 +76,7 @@
         </tr>
         <tr>
             <td><label style="color: lightgray" class="col-lg-2">Status: </label></td>
-            <td><select name="status">
+            <td><select name="status" required>
                 <option th:each="status : ${statuses}"
                         th:text="${status}"
                         th:value="${status.name()}"
