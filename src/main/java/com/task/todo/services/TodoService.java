@@ -14,4 +14,5 @@ public interface TodoService {
   List<String> getStatuses();
   Iterable<String> getContexts();
   Iterable<String> getProjects();
+  void deleteById(Long id);
 }

@@ -73,4 +73,10 @@ public class TodoController {
     todoService.saveTodo(todo);
     return "redirect:/";
   }
+
+  @RequestMapping(path = "/todo/{id}/delete", method = RequestMethod.POST)
+  public String deleteTodo(@PathVariable Long id) {
+    todoService.deleteById(id);
+    return "redirect:/";
+  }
 }

@@ -68,4 +68,9 @@ public class TodoServiceImpl implements TodoService {
     // TODO: handle optional
     return contextRepository.findById(1L).get().getProjects();
   }
+
+  @Override
+  public void deleteById(Long id) {
+    todoRepository.deleteById(id);
+  }
 }
