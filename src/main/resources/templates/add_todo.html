@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit todo</title>
+    <!--<link rel="stylesheet" type="text/css" href="/detailstyle.css">-->
+    <link href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body class="container" style="background: #343a40!important">
+
+<form class="form-dark" action="#" th:action="@{|/todo/add|}" method="post" th:object="${todo}">
+    <table>
+        <tr>
+            <td><label class="col-lg-2" for="title" style="width: 60px; color: lightgray">Title: </label></td>
+            <td><input placeholder="... add title" type="text" id="title" th:field="*{title}" required autofocus></td>
+        </tr>
+        <tr>
+            <td><label style="color: lightgray" class="col-lg-2" for="description">Description: </label></td>
+            <td><textarea placeholder="... add description" id="description" th:field="*{description}"></textarea></td>
+        </tr>
+        <tr>
+            <td><label style="color: lightgray" class="col-lg-2">Owner: </label></td>
+            <!-- th:field does not work with select:
+             https://www.baeldung.com/thymeleaf-select-option -->
+            <td><select name=owner required>
+                <option value="" selected disabled hidden>Select an option</option>
+                <option th:each="owner : ${owners}"
+                        th:text="${owner.getName()}"
+                        th:value="${owner.getId()}">
+                </option>
+            </select></td>
+        </tr>
+        <tr>
+            <td><label style="color: lightgray" class="col-lg-2">Project: </label></td>
+            <td><select name="project" required>
+                <option value="" selected disabled hidden>Select an option</option>
+                <option th:each="project : ${projects}"
+                        th:text="${project}"
+                        th:value="${project}">
+                </option>
+            </select></td>
+        </tr>
+        <tr>
+            <td><label style="color: lightgray" class="col-lg-2">Context: </label></td>
+            <td><select name="context" required>
+                <option value="" selected disabled hidden>Select an option</option>
+                <option th:each="context : ${contexts}"
+                        th:text="${context}"
+                        th:value="${context}">
+                </option>
+            </select></td>
+        </tr>
+        <tr>
+            <td><label style="color: lightgray" class="col-lg-2" for="date">Due date: </label></td>
+            <td><input required type="date" id="date" th:field="*{dueDate}"
+                       placeholder="yyyy.mm.dd." pattern="\d{4}/\d{2}/\d{2}"
+                       ></td>
+        </tr>
+        <tr>
+            <td><label style="color: lightgray" class="col-lg-2">Priority: </label></td>
+            <td><select name="prio" required>
+                <option value="" selected disabled hidden>Select an option</option>
+                <option th:each="priority : ${priorities}"
+                        th:text="${priority}"
+                        th:value="${priority.name()}">
+                </option>
+            </select></td>
+        </tr>
+        <tr>
+            <td><label style="color: lightgray" class="col-lg-2">Status: </label></td>
+            <td><select name="status" required>
+                <option value="" selected disabled hidden>Select an option</option>
+                <option th:each="status : ${statuses}"
+                        th:text="${status}"
+                        th:value="${status.name()}">
+                </option>
+            </select></td>
+        </tr>
+    </table>
+
+    <div>
+        <input class="col-lg-1 btn btn-warning" style="margin-right: 20px" type="submit" value="Save">
+        <a class="col-lg-1 btn btn-warning" style="background-color: gray; border-color: gray; text-decoration: none; color: white" th:href="'/'">Cancel</a>
+    </div>
+</form>
+<script src="/webjars/jquery/3.3.1/jquery.min.js"></script>
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.bundle.js"></script>
+</body>
+</html>

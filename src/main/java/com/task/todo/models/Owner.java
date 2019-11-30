@@ -26,6 +26,12 @@ public class Owner {
     todos = new ArrayList<>();
   }
 
+  public Owner(String name, String email) {
+    todos = new ArrayList<>();
+    this.name = name;
+    this.email = email;
+  }
+
   //region Getters & Setters
   public Long getId() {
     return id;
