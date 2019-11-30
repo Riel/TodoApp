@@ -64,8 +64,12 @@
             <td style="padding: 4px" th:text="${todo.getOwner().getName()}"/>
             <td style="padding: 4px" th:text="${todo.getProject()}"/>
             <td style="padding: 4px" th:text="${todo.getContext()}"/>
-            <td style="padding: 4px" th:text="${todo.getDisplayDueDate()}"/>
-            <td style="padding: 4px" th:text="${todo.getPrio()}"/>
+            <td style="padding: 4px" th:text="${todo.getDisplayDueDate()} "/>
+            <td style="padding: 4px" th:text="${todo.getPrio()}"
+                th:style="${todo.getPrio().ordinal()} == 0 ? 'color: red' :
+                (${todo.getPrio().ordinal()} == 1 ? 'color: orange' :
+                (${todo.getPrio().ordinal()} == 2 ? 'color: yellow' :
+                (${todo.getPrio().ordinal()} == 3 ? 'color: lime' : 'color: gray')))"/>
             <td style="padding: 4px" th:text="${todo.getStatus()}"/>
             <td class="text-center my-0 my-sm0" style="padding: 1px 4px">
                 <a style="font-size: 13px" class="btn btn-outline-success my-0 my-sm0 d-flex justify-content-center btn-sm"

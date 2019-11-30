@@ -8,7 +8,7 @@ public enum Priority {
   HIGH("High"),
   MEDIUM("Medium"),
   LOW("Low"),
-  WAIT("Waiting");
+  NONE("None");
 
   private final String displayName;
 
