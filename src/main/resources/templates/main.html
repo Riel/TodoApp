@@ -84,7 +84,7 @@
             <td class="text-center my-0 my-sm0" style="padding: 1px 4px">
                 <form action="#" th:action="@{|/todo/${todo.getId()}/done|}" th:method="get">
                     <input style="font-size: 13px" th:disabled="${todo.getStatus().ordinal()} == 4"
-                           class="btn btn-outline-success my-0 my-sm0 d-flex justify-content-center btn-sm"
+                           class="btn btn-outline-success my-0 my-sm0 d-flex justify-content-center btn-sm btn-block"
                            type="submit"
                            value="Done">
                 </form>
@@ -92,7 +92,7 @@
             <td class="text-center my-0 my-sm0" style="padding: 1px 4px">
                 <form action="#" th:action="@{|/todo/${todo.getId()}/delete|}" th:method="delete">
                     <input style="font-size: 13px"
-                           class="btn btn-outline-danger my-0 my-sm0 d-flex justify-content-center btn-sm"
+                           class="btn btn-outline-danger my-0 my-sm0 d-flex justify-content-center btn-sm btn-block"
                            type="submit"
                            value="Delete">
                 </form>
