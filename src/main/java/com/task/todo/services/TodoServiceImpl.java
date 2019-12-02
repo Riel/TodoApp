@@ -3,6 +3,7 @@ package com.task.todo.services;
 import com.task.todo.enums.Priority;
 import com.task.todo.enums.Status;
 import com.task.todo.models.Owner;
+import com.task.todo.models.Setting;
 import com.task.todo.models.Todo;
 import com.task.todo.repositories.SettingsRepository;
 import com.task.todo.repositories.OwnerRepository;
@@ -19,13 +20,13 @@ public class TodoServiceImpl implements TodoService {
 
   private OwnerRepository ownerRepository;
   private TodoRepository todoRepository;
-  private SettingsRepository contextRepository;
+  private SettingsRepository settingsRepository;
 
   @Autowired
-  public TodoServiceImpl(OwnerRepository ownerRepository, TodoRepository todoRepository, SettingsRepository contextRepository) {
+  public TodoServiceImpl(OwnerRepository ownerRepository, TodoRepository todoRepository, SettingsRepository settingsRepository) {
     this.ownerRepository = ownerRepository;
     this.todoRepository = todoRepository;
-    this.contextRepository = contextRepository;
+    this.settingsRepository = settingsRepository;
   }
 
   @Override
@@ -60,13 +61,19 @@ public class TodoServiceImpl implements TodoService {
   @Override
   public Iterable<String> getContexts() {
     // TODO: handle optional
-    return contextRepository.findById(1L).get().getContexts();
+    return settingsRepository.findById(1L).get().getContexts();
   }
 
   @Override
   public Iterable<String> getProjects() {
     // TODO: handle optional
-    return contextRepository.findById(1L).get().getProjects();
+    return settingsRepository.findById(1L).get().getProjects();
+  }
+
+  @Override
+  public Setting getSettingById(Long id) {
+    // TODO: handle optional
+    return settingsRepository.findById(id).get();
   }
 
   @Override

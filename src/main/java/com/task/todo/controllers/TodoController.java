@@ -3,6 +3,7 @@ package com.task.todo.controllers;
 import com.task.todo.enums.Priority;
 import com.task.todo.enums.Status;
 import com.task.todo.models.Owner;
+import com.task.todo.models.Setting;
 import com.task.todo.models.Todo;
 import com.task.todo.services.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class TodoController {
@@ -79,6 +82,17 @@ public class TodoController {
     todo.setStatus(Status.FINISHED);
     todoService.saveTodo(todo);
     return "redirect:/";
+  }
+
+  @RequestMapping(path = "/settings", method = RequestMethod.GET)
+  public String showSettings(Model model) {
+    Setting setting = todoService.getSettingById(1L);
+    model.addAttribute("settings", setting);
+    // TODO: make it a query:
+    List<String> ownerNames = new ArrayList();
+    todoService.getOwners().forEach(o -> ownerNames.add(o.getName()));
+    model.addAttribute("owners", ownerNames);
+    return "settings";
   }
 
   private void addTodoAttributes(Model model, Todo todo) {
