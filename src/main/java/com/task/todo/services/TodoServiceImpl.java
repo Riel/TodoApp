@@ -80,4 +80,15 @@ public class TodoServiceImpl implements TodoService {
   public void deleteById(Long id) {
     todoRepository.deleteById(id);
   }
+
+  @Override
+  public void deleteOwner(String name){
+    ownerRepository.deleteOwnerByName(name);
+  }
+
+  @Override
+  public Owner saveOwner(Owner newOwner){
+    return ownerRepository.save(newOwner);
+  }
+
 }

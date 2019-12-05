@@ -9,11 +9,9 @@ import com.task.todo.services.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -86,12 +84,13 @@ public class TodoController {
 
   @RequestMapping(path = "/settings", method = RequestMethod.GET)
   public String showSettings(Model model) {
-    Setting setting = todoService.getSettingById(1L);
-    model.addAttribute("settings", setting);
     // TODO: make it a query:
     List<String> ownerNames = new ArrayList();
     todoService.getOwners().forEach(o -> ownerNames.add(o.getName()));
     model.addAttribute("owners", ownerNames);
+    model.addAttribute("projects", todoService.getProjects());
+    model.addAttribute("contexts", todoService.getContexts());
+
     return "settings";
   }
 
@@ -103,4 +102,24 @@ public class TodoController {
     model.addAttribute("contexts", todoService.getContexts());
     model.addAttribute("projects", todoService.getProjects());
   }
+
+  @RequestMapping(path = "/settings/owner", method = RequestMethod.POST)
+  public String addOwner(@RequestParam String ownerName){
+    todoService.saveOwner(new Owner(ownerName));
+    return "redirect:/settings";
+  }
+
+  @Transactional
+  @RequestMapping(path = "/settings/owners/{owner}", method = RequestMethod.POST)
+  public String deleteOwner(@PathVariable String owner){
+    todoService.deleteOwner(owner);
+    return "redirect:/settings";
+  }
+
+  // settings/owners POST
+  // settings/projects POST
+  // settings/contexts POST
+  // settings/owners/${owner}/delete
+  // settings/projects/${project}/delete
+  // settings/contexts/${context}/delete
 }

@@ -8,31 +8,107 @@
 </head>
 <body class="container" style="background: #343a40!important">
 
-<form class="form-dark" action="#" th:action="@{/settings}" method="post" th:object="${settings}">
-    <div>
-        <H2>Settings</H2>
-    </div>
 
-    <table>
-        <tr>
-            <td><label class="col-lg-2" for="owner" style="width: 60px; color: lightgray">Owners: </label></td>
-            <td><input type="text" id="owner" th:value="${owners}" required></td>
-        </tr>
-        <tr>
-            <td><label style="color: lightgray" class="col-lg-2" for="project">Projects: </label></td>
-            <td><input type="text" id="project" th:field="*{projects}" required></td>
-        </tr>
-        <tr>
-            <td><label style="color: lightgray" class="col-lg-2" for="context">Contexts: </label></td>
-            <td><input type="text" id="context" th:field="*{contexts}" required></td>
+<div>
+    <H2 style="color: lightgray">Settings</H2>
+</div>
+
+<!-- Data for owners -->
+<h3 style="color: lightgray">Owners: </h3>
+<div class="table-responsive w-25 p-3">
+    <table style="font-size: 13px" class="table table-striped table-dark table-hover table-bordered">
+        <tr th:each="owner : ${owners}">
+
+            <td class="text-center my-0 my-sm0" style="padding: 1px 4px">
+                <label th:text="${owner}"/>
+            </td>
+            <td class="text-center my-0 my-sm0" style="padding: 1px 4px">
+                <form action="#" th:action="@{|/settings/owners/${owner}|}" th:method="post">
+                    <input style="font-size: 13px"
+                           class="btn btn-outline-danger my-0 my-sm0 d-flex justify-content-center btn-sm btn-block"
+                           type="submit"
+                           value="Delete">
+                </form>
+            </td>
         </tr>
     </table>
-
-    <div>
-        <input class="col-lg-1 btn btn-warning" style="margin-right: 20px" type="submit" value="Save">
-        <a class="col-lg-1 btn btn-warning" style="background-color: gray; border-color: gray; text-decoration: none; color: white" th:href="'/'">Cancel</a>
+</div>
+<form action="#" th:action="@{/settings/owner}" th:method="post">
+    <div class="form-inline">
+        <input placeholder=" ...add owner name" name="ownerName" style="margin-right:5px">
+        <input style="font-size: 13px; display: inline-block"
+               class="btn btn-outline-warning my-0 my-sm0 d-flex justify-content-center btn-sm"
+               type="submit"
+               value="Add owner"/>
     </div>
 </form>
+<br>
+
+<!-- Data for projects -->
+<h3 style="color: lightgray">Projects: </h3>
+<div class="table-responsive w-25 p-3">
+    <table style="font-size: 13px" class="table table-striped table-dark table-hover table-bordered">
+        <tr th:each="project : ${projects}">
+
+            <td class="text-center my-0 my-sm0" style="padding: 1px 4px">
+                <label th:text="${project}"/>
+            </td>
+            <td class="text-center my-0 my-sm0" style="padding: 1px 4px">
+                <form action="#" th:action="@{|/settings/projects/${project}/delete|}" th:method="delete">
+                    <input style="font-size: 13px"
+                           class="btn btn-outline-danger my-0 my-sm0 d-flex justify-content-center btn-sm btn-block"
+                           type="submit"
+                           value="Delete">
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+<form action="#" th:action="@{/settings/projects}" th:method="post">
+    <div class="form-inline">
+        <input placeholder=" ...add project name" name="newName" style="margin-right:5px">
+        <input style="font-size: 13px; display: inline-block"
+               class="btn btn-outline-warning my-0 my-sm0 d-flex justify-content-center btn-sm"
+               type="submit"
+               value="Add project"/>
+    </div>
+</form>
+<br>
+
+<!-- Data for contexts -->
+<h3 style="color: lightgray">Contexts: </h3>
+<div class="table-responsive w-25 p-3">
+    <table style="font-size: 13px" class="table table-striped table-dark table-hover table-bordered">
+        <tr th:each="context : ${contexts}">
+            <td class="text-center my-0 my-sm0" style="padding: 1px 4px">
+                <label th:text="${context}"/>
+            </td>
+            <td class="text-center my-0 my-sm0" style="padding: 1px 4px">
+                <form action="#" th:action="@{|/settings/contexts/${context}/delete|}" th:method="delete">
+                    <input style="font-size: 13px"
+                           class="btn btn-outline-danger my-0 my-sm0 d-flex justify-content-center btn-sm btn-block"
+                           type="submit"
+                           value="Delete">
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+<form action="#" th:action="@{/settings/contexts}" th:method="post">
+    <div class="form-inline">
+        <input placeholder=" ...add context name" name="newName" style="margin-right:5px">
+        <input style="font-size: 13px; display: inline-block"
+               class="btn btn-outline-warning my-0 my-sm0 d-flex justify-content-center btn-sm"
+               type="submit"
+               value="Add context"/>
+    </div>
+</form>
+<br>
+
+<a class="col-lg-1 btn btn-warning"
+   style="background-color: gray; border-color: gray; text-decoration: none; color: white"
+   th:href="'/'">Cancel</a>
+
 <script src="/webjars/jquery/3.3.1/jquery.min.js"></script>
 <script src="/webjars/bootstrap/4.3.1/js/bootstrap.bundle.js"></script>
 </body>

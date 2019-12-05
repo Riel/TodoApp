@@ -16,14 +16,20 @@ public class Owner {
   private String email;
 
   @OneToMany(mappedBy = "owner",
-          fetch = FetchType.EAGER,
-          cascade = CascadeType.ALL,
-          orphanRemoval = true)
+          fetch = FetchType.LAZY,
+          cascade = CascadeType.PERSIST)
   private List<Todo> todos;
+
+
   //endregion
 
   public Owner (){
     todos = new ArrayList<>();
+  }
+
+  public Owner (String name){
+    todos = new ArrayList<>();
+    this.name = name;
   }
 
   public Owner(String name, String email) {

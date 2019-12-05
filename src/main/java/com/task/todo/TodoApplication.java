@@ -32,7 +32,7 @@ public class TodoApplication implements CommandLineRunner {
   @Override
   public void run(String... args) throws Exception {
 
-    Owner a = new Owner();
+    /*Owner a = new Owner();
     a.setEmail("riel@riel.hu");
     a.setName("Riel");
 
@@ -52,6 +52,6 @@ public class TodoApplication implements CommandLineRunner {
     s.addProject("KD");
     s.addProject("Home");
 
-    settingRepository.save(s);
+    settingRepository.save(s);*/
   }
 }

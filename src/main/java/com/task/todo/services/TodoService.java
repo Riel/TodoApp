@@ -17,4 +17,6 @@ public interface TodoService {
   Iterable<String> getProjects();
   Setting getSettingById(Long id);
   void deleteById(Long id);
+  void deleteOwner(String name);
+  Owner saveOwner(Owner newOwner);
 }
