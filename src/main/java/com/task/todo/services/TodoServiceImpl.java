@@ -61,19 +61,34 @@ public class TodoServiceImpl implements TodoService {
   @Override
   public Iterable<String> getContexts() {
     // TODO: handle optional
-    return settingsRepository.findById(1L).get().getContexts();
+    Optional<Setting> setting = settingsRepository.findById(1L);
+    if (setting.isPresent()){
+      return setting.get().getContexts();
+    } else {
+      return null;
+    }
   }
 
   @Override
   public Iterable<String> getProjects() {
     // TODO: handle optional
-    return settingsRepository.findById(1L).get().getProjects();
+    Optional<Setting> setting = settingsRepository.findById(1L);
+    if (setting.isPresent()){
+      return setting.get().getProjects();
+    } else {
+      return null;
+    }
   }
 
   @Override
   public Setting getSettingById(Long id) {
     // TODO: handle optional
-    return settingsRepository.findById(id).get();
+    return settingsRepository.findById(1L).orElse(null);
+  }
+
+  @Override
+  public void saveSetting(Setting setting) {
+    settingsRepository.save(setting);
   }
 
   @Override

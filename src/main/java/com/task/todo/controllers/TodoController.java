@@ -109,6 +109,28 @@ public class TodoController {
     return "redirect:/settings";
   }
 
+  @RequestMapping(path = "/settings/project", method = RequestMethod.POST)
+  public String addProject(@RequestParam String projectName){
+    Setting setting = todoService.getSettingById(1L);
+    if (setting == null){
+      setting = new Setting();
+    }
+    setting.addProject(projectName);
+    todoService.saveSetting(setting);
+    return "redirect:/settings";
+  }
+
+  @RequestMapping(path = "/settings/context", method = RequestMethod.POST)
+  public String addContext(@RequestParam String contextName){
+    Setting setting = todoService.getSettingById(1L);
+    if (setting == null){
+      setting = new Setting();
+    }
+    setting.addContext(contextName);
+    todoService.saveSetting(setting);
+    return "redirect:/settings";
+  }
+
   @Transactional
   @RequestMapping(path = "/settings/owners/{owner}", method = RequestMethod.POST)
   public String deleteOwner(@PathVariable String owner){
