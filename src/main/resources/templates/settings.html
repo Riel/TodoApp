@@ -9,13 +9,16 @@
 <body class="container" style="background: #343a40!important">
 
 
+<a class="btn btn-warning" style="background-color: gray; border-color: gray; text-decoration: none; color: white" th:href="'/'">Go back</a>
+
 <div>
-    <H2 style="color: lightgray">Settings</H2>
+    <H3 style="color: lightgray">Settings</H3>
 </div>
 
+
 <!-- Data for owners -->
-<h3 style="color: lightgray">Owners: </h3>
-<div class="table-responsive w-25 p-3">
+<h5 style="color: lightgray">Owners: </h5>
+<div class="table-responsive w-25 p-1">
     <table style="font-size: 13px" class="table table-striped table-dark table-hover table-bordered">
         <tr th:each="owner : ${owners}">
 
@@ -45,8 +48,8 @@
 <br>
 
 <!-- Data for projects -->
-<h3 style="color: lightgray">Projects: </h3>
-<div class="table-responsive w-25 p-3">
+<h5 style="color: lightgray">Projects: </h5>
+<div class="table-responsive w-25 p-1">
     <table style="font-size: 13px" class="table table-striped table-dark table-hover table-bordered">
         <tr th:each="project : ${projects}">
 
@@ -76,8 +79,8 @@
 <br>
 
 <!-- Data for contexts -->
-<h3 style="color: lightgray">Contexts: </h3>
-<div class="table-responsive w-25 p-3">
+<h5 style="color: lightgray">Contexts: </h5>
+<div class="table-responsive w-25 p-1">
     <table style="font-size: 13px" class="table table-striped table-dark table-hover table-bordered">
         <tr th:each="context : ${contexts}">
             <td class="text-center my-0 my-sm0" style="padding: 1px 4px">
@@ -105,9 +108,6 @@
 </form>
 <br>
 
-<a class="col-lg-1 btn btn-warning"
-   style="background-color: gray; border-color: gray; text-decoration: none; color: white"
-   th:href="'/'">Cancel</a>
 
 <script src="/webjars/jquery/3.3.1/jquery.min.js"></script>
 <script src="/webjars/bootstrap/4.3.1/js/bootstrap.bundle.js"></script>
