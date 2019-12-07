@@ -136,10 +136,17 @@ public class TodoController {
     return "redirect:/settings";
   }
 
-  // settings/owners POST
-  // settings/projects POST
-  // settings/contexts POST
-  // settings/owners/${owner}/delete
-  // settings/projects/${project}/delete
-  // settings/contexts/${context}/delete
+  @Transactional
+  @RequestMapping(path = "/settings/projects/{project}/delete", method = RequestMethod.POST)
+  public String deleteProject(@PathVariable String project){
+    todoService.deleteProject(project);
+    return "redirect:/settings";
+  }
+
+  @Transactional
+  @RequestMapping(path = "/settings/contexts/{context}/delete", method = RequestMethod.POST)
+  public String deleteContext(@PathVariable String context){
+    todoService.deleteContext(context);
+    return "redirect:/settings";
+  }
 }

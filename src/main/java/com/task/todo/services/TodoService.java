@@ -18,6 +18,8 @@ public interface TodoService {
   Setting getSettingById(Long id);
   void saveSetting(Setting setting);
   void deleteById(Long id);
-  void deleteOwner(String name);
+  void deleteOwner(String ownerName);
+  void deleteProject(String projectName);
+  void deleteContext(String contextName);
   Owner saveOwner(Owner newOwner);
 }

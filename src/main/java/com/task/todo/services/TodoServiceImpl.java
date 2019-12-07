@@ -102,8 +102,29 @@ public class TodoServiceImpl implements TodoService {
   }
 
   @Override
+  public void deleteProject(String projectName) {
+    //TODO: handle exceptions here
+    Optional<Setting> setting = settingsRepository.findById(1L);
+    if (setting.isPresent()) {
+      Setting itemToSave = setting.get();
+      itemToSave.getProjects().remove(projectName);
+      saveSetting(itemToSave);
+    }
+  }
+
+  @Override
+  public void deleteContext(String contextName) {
+    //TODO: handle exceptions here
+    Optional<Setting> setting = settingsRepository.findById(1L);
+    if (setting.isPresent()) {
+      Setting itemToSave = setting.get();
+      itemToSave.getContexts().remove(contextName);
+      saveSetting(itemToSave);
+    }
+  }
+
+  @Override
   public Owner saveOwner(Owner newOwner){
     return ownerRepository.save(newOwner);
   }
-
 }
