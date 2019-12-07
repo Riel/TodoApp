@@ -52,6 +52,10 @@
                    th:text="${todo.getTitle()}"
                    th:title="${todo.getDescription()}">
                 </a>
+                <a th:if="${todo.hasLink()} == true" target="_blank"
+                   th:style="${todo.getStatus().ordinal()} == 4 ? 'color: gray' : 'color: cornflowerblue' + '; letter-spacing: -2px'"
+                   th:href="@{${todo.getLink()}}">>>>
+                </a>
             </td>
             <td th:style="'padding: 4px;' + (${todo.getStatus().ordinal()} == 4 ? 'color: gray' :
              (${todo.getOwner().getId()} == 2 ? 'color:#A6F8DD' : 'color: white'))"

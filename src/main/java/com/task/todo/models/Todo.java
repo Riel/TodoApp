@@ -18,6 +18,7 @@ public class Todo {
   private Long id;
   private String title;
   private String description;
+  private String link;
   private String project;
   private String context;
   @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -34,20 +35,21 @@ public class Todo {
 
 
   public Todo() {
-  creationDate = LocalDate.now();
+    creationDate = LocalDate.now();
   }
 
-  public Todo(String title, String description, String project, String context, LocalDate creationDate, LocalDate dueDate, Priority prio, Status status, Owner owner) {
-    this(title, description, project, context, creationDate, dueDate, prio, status);
+  public Todo(String title, String description, String project, String context, LocalDate dueDate, Priority prio, Status status, Owner owner) {
+    this(title, description, project, context, dueDate, prio, status);
     this.owner = owner;
+    creationDate = LocalDate.now();
   }
 
-  public Todo(String title, String description, String project, String context, LocalDate creationDate,  LocalDate dueDate, Priority prio, Status status) {
+  // TODO: remove if not used!
+  public Todo(String title, String description, String project, String context, LocalDate dueDate, Priority prio, Status status) {
     this.title = title;
     this.description = description;
     this.project = project;
     this.context = context;
-    this.creationDate = creationDate;
     this.dueDate = dueDate;
     this.prio = prio;
     this.status = status;
@@ -76,6 +78,18 @@ public class Todo {
 
   public void setDescription(String description) {
     this.description = description;
+  }
+
+  public String getLink() {
+    return link;
+  }
+
+  public void setLink(String link) {
+    this.link = link.equals("") ? null :link;
+  }
+
+  public boolean hasLink() {
+    return link != null;
   }
 
   public String getProject() {
@@ -135,11 +149,11 @@ public class Todo {
   }
   //endregion
 
-  public String getDisplayDueDate(){
+  public String getDisplayDueDate() {
     return Utilities.dateToString(dueDate);
   }
 
-  public String getDisplayCreationDate(){
+  public String getDisplayCreationDate() {
     return Utilities.dateToString(creationDate);
   }
 }

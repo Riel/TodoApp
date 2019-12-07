@@ -31,8 +31,6 @@
             <td><label style="color: lightgray" class="mr-2">Created at: </label></td>
             <td><label style="color: lightgray" th:text="*{getCreationDate()}"></label></td>
         </tr>
-
-
         <tr>
             <td><label class="mr-2" for="title" style="color: lightgray">Title: </label></td>
             <td><input placeholder="... add title" style="width: 300%" type="text" id="title" th:field="*{title}" required autofocus></td>
@@ -46,6 +44,10 @@
                           id="description"
                           th:field="*{description}"></textarea>
             </td>
+        </tr>
+        <tr>
+            <td><label class="mr-2" style="color: lightgray" for="link">External link: </label></td>
+            <td><input placeholder="... add link" style="width: 300%" type="text" id="link" th:field="*{link}"></td>
         </tr>
         <tr>
             <td><label class="mr-2"  style="color: lightgray">Owner: </label></td>

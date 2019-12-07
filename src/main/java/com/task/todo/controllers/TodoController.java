@@ -55,12 +55,10 @@ public class TodoController {
 
   // TODO: move to service
   private Todo createEmptyTodo() {
-    Todo todo = new Todo("", "", "", "", LocalDate.now(), LocalDate.now(), Priority.LOW, Status.NOT_STARTED, new Owner("", ""));
+    Todo todo = new Todo("", "", "", "", LocalDate.now(), Priority.LOW, Status.NOT_STARTED, new Owner("", ""));
     todo.setId(0L);
     return todo;
   }
-
-
 
   @RequestMapping(path = "/todo/add", method = RequestMethod.POST)
   public String addTodo(@ModelAttribute Todo todo) {

@@ -30,6 +30,10 @@
             </td>
         </tr>
         <tr>
+            <td><label class="mr-2" style="color: lightgray" for="link">External link: </label></td>
+            <td><input placeholder="... add link" type="text" id="link" th:field="*{link}"></td>
+        </tr>
+        <tr>
             <td><label class="mr-2" style="color: lightgray" >Owner: </label></td>
             <!-- th:field does not work with select:
              https://www.baeldung.com/thymeleaf-select-option -->
