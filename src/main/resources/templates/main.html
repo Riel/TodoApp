@@ -8,8 +8,8 @@
     <link href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"/>
 </head>
 
-<body style="background: #343a40!important">
-<nav class="navbar navbar-expand-md navbar-dark navbar-fixed-top bg-dark">
+<body style="background: #343a40!important; padding-top: 70px">
+<nav class="navbar navbar-expand-md fixed-top bg-dark">
     <a class="navbar navbar-brand active" style="color: lightgray"><h3>Todos ...</h3></a>
 
     <div class="collapse navbar-collapse" style="display: flex; justify-content: flex-end">
@@ -27,8 +27,12 @@
 
 
 <div class="table-responsive">
-    <table style="font-size: 13px" class="table table-striped table-dark table-hover table-bordered">
-        <thead class="bg-secondary">
+    <table class="table table-striped table-dark table-hover table-bordered"
+            style="font-size: 13px; width: 100%; height: 100%">
+            <!-- add: margin-top: 43px-->
+        <thead class="bg-secondary"
+            style="top: 68px; width: 100%">
+        <!-- add: style="position:fixed ...-->
         <tr>
             <th class="text-center" scope="col">ID</th>
             <th>TITLE</th>
