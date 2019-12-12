@@ -10,7 +10,34 @@
 
 <body style="background: #343a40!important; padding-top: 70px">
 <nav class="navbar navbar-expand-md fixed-top bg-dark">
-    <a class="navbar navbar-brand active" style="color: lightgray"><h3>Todos ...</h3></a>
+    <form action="/" th:method="get" style="vertical-align: bottom">
+        <select name=owner style="display: inline">
+            <option value="" selected disabled hidden>Select owner</option>
+            <option th:each="owner : ${owners}"
+                    th:text="${owner}"
+                    th:value="${owner}">
+            </option>
+        </select>
+        <select name=project  style="display: inline">
+            <option value="" selected disabled hidden>Select project</option>
+            <option th:each="project : ${projects}"
+                    th:text="${project}"
+                    th:value="${project}">
+            </option>
+        </select>
+        <select name=context style="display: inline">
+            <option value="" selected disabled hidden>Select context</option>
+            <option th:each="context : ${contexts}"
+                    th:text="${context}"
+                    th:value="${context}">
+            </option>
+        </select>
+        <input style="font-size: 13px; display: inline; padding: 2px 8px; vertical-align: top"
+               class="btn btn-outline-primary my-0 my-sm0 justify-content-center btn-sm"
+               type="submit"
+               value="Search">
+    </form>
+
 
     <div class="collapse navbar-collapse" style="display: flex; justify-content: flex-end">
         <ul class="nav navbar-nav d-block">

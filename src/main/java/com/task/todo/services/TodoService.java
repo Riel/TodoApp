@@ -7,7 +7,7 @@ import com.task.todo.models.Todo;
 import java.util.List;
 
 public interface TodoService {
-  Iterable<Todo> getAllTodo();
+  List<Todo> getAllTodo();
   Todo getTodo(Long id);
   void saveTodo(Todo todo);
   Iterable<Owner> getOwners();

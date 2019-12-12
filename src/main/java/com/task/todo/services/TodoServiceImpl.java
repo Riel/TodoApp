@@ -30,7 +30,7 @@ public class TodoServiceImpl implements TodoService {
   }
 
   @Override
-  public Iterable<Todo> getAllTodo() {
+  public List<Todo> getAllTodo() {
     return todoRepository.findAll();
   }
 
