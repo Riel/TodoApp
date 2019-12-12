@@ -17,6 +17,8 @@ public class Todo {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String title;
+
+  // @Column(columnDefinition = "TEXT")
   private String description;
   private String link;
   private String project;
