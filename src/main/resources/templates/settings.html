@@ -38,7 +38,8 @@
 </div>
 <form action="#" th:action="@{/settings/owner}" th:method="post">
     <div class="form-inline">
-        <input placeholder=" ...add owner name" name="ownerName" style="margin-right:5px">
+        <input placeholder=" ...add owner name" name="ownerName" style="margin-right:5px"
+               pattern="[A-Za-z0-9]{2,}" required title="2 characters minimum">
         <input style="font-size: 13px; display: inline-block"
                class="btn btn-outline-warning my-0 my-sm0 d-flex justify-content-center btn-sm"
                type="submit"
@@ -69,7 +70,8 @@
 </div>
 <form action="#" th:action="@{/settings/project}" th:method="post">
     <div class="form-inline">
-        <input placeholder=" ...add project name" name="projectName" style="margin-right:5px">
+        <input placeholder=" ...add project name" name="projectName" style="margin-right:5px"
+               pattern="[A-Za-z0-9]{2,}" required title="2 characters minimum">
         <input style="font-size: 13px; display: inline-block"
                class="btn btn-outline-warning my-0 my-sm0 d-flex justify-content-center btn-sm"
                type="submit"
@@ -99,7 +101,8 @@
 </div>
 <form action="#" th:action="@{/settings/context}" th:method="post">
     <div class="form-inline">
-        <input placeholder=" ...add context name" name="contextName" style="margin-right:5px">
+        <input placeholder=" ...add context name" name="contextName" style="margin-right:5px"
+               pattern="[A-Za-z0-9]{2,}" required title="2 characters minimum">
         <input style="font-size: 13px; display: inline-block"
                class="btn btn-outline-warning my-0 my-sm0 d-flex justify-content-center btn-sm"
                type="submit"
