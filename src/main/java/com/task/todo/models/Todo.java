@@ -6,11 +6,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 @Table(name = "todos")
-public class Todo {
+public class Todo implements Comparable<Todo> {
 
   //region Fields
   @Id
@@ -157,5 +156,16 @@ public class Todo {
 
   public String getDisplayCreationDate() {
     return Utilities.dateToString(creationDate);
+  }
+
+  @Override
+  public int compareTo(Todo o) {
+    if (prio.ordinal() < o.getPrio().ordinal()){
+      return -1;
+    } else if (prio.ordinal() == o.getPrio().ordinal()){
+      return 0;
+    } else {
+      return 1;
+    }
   }
 }

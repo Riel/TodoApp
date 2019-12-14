@@ -93,6 +93,8 @@ public class TodoController {
       displayedTodos = allTodos;
     }
 
+    displayedTodos = displayedTodos.stream().sorted().collect(Collectors.toList());
+
     model.addAttribute("todos", displayedTodos);
 
     List<String> ownerNames = new ArrayList();
