@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 public class TodoController {
 
   private TodoService todoService;
+  private final String EMPTY_FILTER = "Select all";
 
   @Autowired
   public TodoController(TodoService todoService) {
@@ -33,15 +34,15 @@ public class TodoController {
                             @RequestParam (required = false) String project,
                             @RequestParam (required = false) String context){
 
-    if (owner != null && owner.equals("none")) {
+    if (owner != null && owner.equals(EMPTY_FILTER)) {
       owner = null;
     }
 
-    if (project != null && project.equals("none")) {
+    if (project != null && project.equals(EMPTY_FILTER)) {
       project = null;
     }
 
-    if (context != null && context.equals("none")) {
+    if (context != null && context.equals(EMPTY_FILTER)) {
       context = null;
     }
 
@@ -99,15 +100,15 @@ public class TodoController {
 
     List<String> ownerNames = new ArrayList();
     todoService.getOwners().forEach(o -> ownerNames.add(o.getName()));
-    ownerNames.add("none");
+    ownerNames.add(EMPTY_FILTER);
     model.addAttribute("owners", ownerNames);
     List<String> projectNames = new ArrayList<>();
     todoService.getProjects().forEach(p->projectNames.add(p));
-    projectNames.add("none");
+    projectNames.add(EMPTY_FILTER);
     model.addAttribute("projects", projectNames);
     List<String> contextNames = new ArrayList<>();
     todoService.getContexts().forEach(c->contextNames.add(c));
-    contextNames.add("none");
+    contextNames.add(EMPTY_FILTER);
     model.addAttribute("contexts", contextNames);
 
     model.addAttribute("selectedOwner", owner);
