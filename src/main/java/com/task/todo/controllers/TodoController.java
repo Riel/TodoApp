@@ -33,6 +33,22 @@ public class TodoController {
                             @RequestParam (required = false) String project,
                             @RequestParam (required = false) String context){
 
+    if (owner != null && owner.equals("none")) {
+      owner = null;
+    }
+
+    if (project != null && project.equals("none")) {
+      project = null;
+    }
+
+    if (context != null && context.equals("none")) {
+      context = null;
+    }
+
+    String finalOwner = owner;
+    String finalProject = project;
+    String finalContext = context;
+
     boolean hasOwner = owner != null;
     boolean hasProject = project != null;
     boolean hasContext = context != null;
@@ -42,36 +58,36 @@ public class TodoController {
 
     if (hasOwner && hasProject && hasContext){
       displayedTodos = allTodos.stream()
-              .filter(t -> t.getOwner().getName().equals(owner))
-              .filter(t -> t.getProject().equals(project))
-              .filter(t -> t.getContext().equals(context))
+              .filter(t -> t.getOwner().getName().equals(finalOwner))
+              .filter(t -> t.getProject().equals(finalProject))
+              .filter(t -> t.getContext().equals(finalContext))
               .collect(Collectors.toList());
     } else if (hasOwner && hasProject && !hasContext) {
       displayedTodos = allTodos.stream()
-              .filter(t -> t.getOwner().getName().equals(owner))
-              .filter(t -> t.getProject().equals(project))
+              .filter(t -> t.getOwner().getName().equals(finalOwner))
+              .filter(t -> t.getProject().equals(finalProject))
               .collect(Collectors.toList());
     } else if (hasOwner && !hasProject && hasContext) {
       displayedTodos = allTodos.stream()
-              .filter(t -> t.getOwner().getName().equals(owner))
-              .filter(t -> t.getContext().equals(context))
+              .filter(t -> t.getOwner().getName().equals(finalOwner))
+              .filter(t -> t.getContext().equals(finalContext))
               .collect(Collectors.toList());
     } else if (hasOwner && !hasProject && !hasContext) {
       displayedTodos = allTodos.stream()
-              .filter(t -> t.getOwner().getName().equals(owner))
+              .filter(t -> t.getOwner().getName().equals(finalOwner))
               .collect(Collectors.toList());
     } else if (!hasOwner && hasProject && hasContext) {
       displayedTodos = allTodos.stream()
-              .filter(t -> t.getProject().equals(project))
-              .filter(t -> t.getContext().equals(context))
+              .filter(t -> t.getProject().equals(finalProject))
+              .filter(t -> t.getContext().equals(finalContext))
               .collect(Collectors.toList());
     } else if (!hasOwner && hasProject && !hasContext) {
       displayedTodos = allTodos.stream()
-              .filter(t -> t.getProject().equals(project))
+              .filter(t -> t.getProject().equals(finalProject))
               .collect(Collectors.toList());
     } else if (!hasOwner && !hasProject && hasContext) {
       displayedTodos = allTodos.stream()
-              .filter(t -> t.getContext().equals(context))
+              .filter(t -> t.getContext().equals(finalContext))
               .collect(Collectors.toList());
     }  if (!hasOwner && !hasProject && !hasContext) {
       displayedTodos = allTodos;
@@ -81,13 +97,20 @@ public class TodoController {
 
     List<String> ownerNames = new ArrayList();
     todoService.getOwners().forEach(o -> ownerNames.add(o.getName()));
+    ownerNames.add("none");
     model.addAttribute("owners", ownerNames);
     List<String> projectNames = new ArrayList<>();
     todoService.getProjects().forEach(p->projectNames.add(p));
+    projectNames.add("none");
     model.addAttribute("projects", projectNames);
     List<String> contextNames = new ArrayList<>();
     todoService.getContexts().forEach(c->contextNames.add(c));
+    contextNames.add("none");
     model.addAttribute("contexts", contextNames);
+
+    model.addAttribute("selectedOwner", owner);
+    model.addAttribute("selectedProject", project);
+    model.addAttribute("selectedContext", context);
 
     return "main";
   }

@@ -10,6 +10,8 @@ import com.task.todo.repositories.OwnerRepository;
 import com.task.todo.repositories.TodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -65,7 +67,7 @@ public class TodoServiceImpl implements TodoService {
     if (setting.isPresent()){
       return setting.get().getContexts();
     } else {
-      return null;
+      return new ArrayList<String>();
     }
   }
 
@@ -76,7 +78,7 @@ public class TodoServiceImpl implements TodoService {
     if (setting.isPresent()){
       return setting.get().getProjects();
     } else {
-      return null;
+      return new ArrayList<String>();
     }
   }
 
