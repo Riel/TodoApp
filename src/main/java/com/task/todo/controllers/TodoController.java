@@ -114,6 +114,7 @@ public class TodoController {
     model.addAttribute("selectedOwner", owner);
     model.addAttribute("selectedProject", project);
     model.addAttribute("selectedContext", context);
+    model.addAttribute("items", displayedTodos.size());
 
     return "main";
   }
