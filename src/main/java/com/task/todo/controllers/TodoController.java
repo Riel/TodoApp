@@ -189,7 +189,7 @@ public class TodoController {
 
   @RequestMapping(path = "/settings/owner", method = RequestMethod.POST)
   public String addOwner(@RequestParam String ownerName){
-    todoService.saveOwner(new Owner(ownerName));
+    todoService.saveOwner(new Owner(ownerName.trim()));
     return "redirect:/settings";
   }
 
@@ -199,7 +199,7 @@ public class TodoController {
     if (setting == null){
       setting = new Setting();
     }
-    setting.addProject(projectName);
+    setting.addProject(projectName.trim());
     todoService.saveSetting(setting);
     return "redirect:/settings";
   }
@@ -210,7 +210,7 @@ public class TodoController {
     if (setting == null){
       setting = new Setting();
     }
-    setting.addContext(contextName);
+    setting.addContext(contextName.trim());
     todoService.saveSetting(setting);
     return "redirect:/settings";
   }
