@@ -21,7 +21,9 @@ import java.util.stream.Collectors;
 public class TodoController {
 
   private TodoService todoService;
-  private final String EMPTY_FILTER = "Select all";
+  private final String ALL_FILTER = "Select all";
+  private final String EMPTY_FILTER = "0";
+
 
   @Autowired
   public TodoController(TodoService todoService) {
@@ -34,15 +36,15 @@ public class TodoController {
                             @RequestParam (required = false) String project,
                             @RequestParam (required = false) String context){
 
-    if (owner != null && owner.equals(EMPTY_FILTER)) {
+    if (EMPTY_FILTER.equals(owner) || ALL_FILTER.equals(owner)) {
       owner = null;
     }
 
-    if (project != null && project.equals(EMPTY_FILTER)) {
+    if (EMPTY_FILTER.equals(project) || ALL_FILTER.equals(project)) {
       project = null;
     }
 
-    if (context != null && context.equals(EMPTY_FILTER)) {
+    if (EMPTY_FILTER.equals(context) || ALL_FILTER.equals(context)) {
       context = null;
     }
 
@@ -50,71 +52,43 @@ public class TodoController {
     String finalProject = project;
     String finalContext = context;
 
-    boolean hasOwner = owner != null;
-    boolean hasProject = project != null;
-    boolean hasContext = context != null;
+    boolean hasOwner = owner!=null;
+    boolean hasProject = project!=null;
+    boolean hasContext = context!=null;
 
     List<Todo> allTodos = todoService.getAllTodo();
-    List<Todo> displayedTodos = new ArrayList<>();
 
-    if (hasOwner && hasProject && hasContext){
-      displayedTodos = allTodos.stream()
-              .filter(t -> t.getOwner().getName().equals(finalOwner))
-              .filter(t -> t.getProject().equals(finalProject))
-              .filter(t -> t.getContext().equals(finalContext))
-              .collect(Collectors.toList());
-    } else if (hasOwner && hasProject && !hasContext) {
-      displayedTodos = allTodos.stream()
-              .filter(t -> t.getOwner().getName().equals(finalOwner))
-              .filter(t -> t.getProject().equals(finalProject))
-              .collect(Collectors.toList());
-    } else if (hasOwner && !hasProject && hasContext) {
-      displayedTodos = allTodos.stream()
-              .filter(t -> t.getOwner().getName().equals(finalOwner))
-              .filter(t -> t.getContext().equals(finalContext))
-              .collect(Collectors.toList());
-    } else if (hasOwner && !hasProject && !hasContext) {
-      displayedTodos = allTodos.stream()
-              .filter(t -> t.getOwner().getName().equals(finalOwner))
-              .collect(Collectors.toList());
-    } else if (!hasOwner && hasProject && hasContext) {
-      displayedTodos = allTodos.stream()
-              .filter(t -> t.getProject().equals(finalProject))
-              .filter(t -> t.getContext().equals(finalContext))
-              .collect(Collectors.toList());
-    } else if (!hasOwner && hasProject && !hasContext) {
-      displayedTodos = allTodos.stream()
-              .filter(t -> t.getProject().equals(finalProject))
-              .collect(Collectors.toList());
-    } else if (!hasOwner && !hasProject && hasContext) {
-      displayedTodos = allTodos.stream()
-              .filter(t -> t.getContext().equals(finalContext))
-              .collect(Collectors.toList());
-    }  if (!hasOwner && !hasProject && !hasContext) {
-      displayedTodos = allTodos;
+    if(hasOwner) {
+      allTodos = allTodos.stream().filter(t -> t.getOwner().getName().equals(finalOwner)).collect(Collectors.toList());
+    }
+    if(hasProject) {
+      allTodos = allTodos.stream().filter(t -> t.getProject().equals(finalProject)).collect(Collectors.toList());
+    }
+    if(hasContext) {
+      allTodos = allTodos.stream().filter(t -> t.getContext().equals(finalContext)).collect(Collectors.toList());
     }
 
-    displayedTodos = displayedTodos.stream().sorted().collect(Collectors.toList());
+    allTodos = allTodos.stream().sorted().collect(Collectors.toList());
+    model.addAttribute("todos", allTodos);
 
-    model.addAttribute("todos", displayedTodos);
 
     List<String> ownerNames = new ArrayList();
     todoService.getOwners().forEach(o -> ownerNames.add(o.getName()));
-    ownerNames.add(EMPTY_FILTER);
+    ownerNames.add(ALL_FILTER);
     model.addAttribute("owners", ownerNames);
     List<String> projectNames = new ArrayList<>();
     todoService.getProjects().forEach(p->projectNames.add(p));
-    projectNames.add(EMPTY_FILTER);
+    projectNames.add(ALL_FILTER);
     model.addAttribute("projects", projectNames);
     List<String> contextNames = new ArrayList<>();
     todoService.getContexts().forEach(c->contextNames.add(c));
-    contextNames.add(EMPTY_FILTER);
+    contextNames.add(ALL_FILTER);
     model.addAttribute("contexts", contextNames);
 
     model.addAttribute("selectedOwner", owner);
     model.addAttribute("selectedProject", project);
     model.addAttribute("selectedContext", context);
-    model.addAttribute("items", displayedTodos.size());
+    model.addAttribute("items", allTodos.size());
 
     return "main";
   }
@@ -153,10 +127,14 @@ public class TodoController {
     return "redirect:/";
   }
 
-  @RequestMapping(path = "/todo/{id}/delete", method = RequestMethod.GET)
-  public String deleteTodo(@PathVariable Long id) {
+  @RequestMapping(path = "/todo/id/{id}/owner/{owner}/project/{project}/context/{context}/delete", method = RequestMethod.GET)
+  public String deleteTodo(@PathVariable Long id,
+                           @PathVariable String owner,
+                           @PathVariable String project,
+                           @PathVariable String context, Model model) {
     todoService.deleteById(id);
-    return "redirect:/";
+
+    return getMainPage(model,owner, project,context);
   }
 
   @RequestMapping(path = "/todo/{id}/done", method = RequestMethod.POST)
