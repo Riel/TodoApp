@@ -11,6 +11,9 @@ import com.task.todo.repositories.TodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -24,6 +27,16 @@ public class TodoServiceImpl implements TodoService {
   private TodoRepository todoRepository;
   private SettingsRepository settingsRepository;
 
+  private final String ALL_FILTER = "Select all";
+  private final String EMPTY_FILTER = "0";
+
+  @PersistenceContext
+  EntityManager entityManager;
+
+  public String getAllFilter() {
+    return ALL_FILTER;
+  }
+
   @Autowired
   public TodoServiceImpl(OwnerRepository ownerRepository, TodoRepository todoRepository, SettingsRepository settingsRepository) {
     this.ownerRepository = ownerRepository;
@@ -32,8 +45,47 @@ public class TodoServiceImpl implements TodoService {
   }
 
   @Override
-  public List<Todo> getAllTodo() {
-    return todoRepository.findAll();
+  public List<Todo> getFilteredTodos(String ownerName, String project, String context){
+
+    if (EMPTY_FILTER.equals(ownerName) || ALL_FILTER.equals(ownerName)) {
+      ownerName = null;
+    }
+
+    if (EMPTY_FILTER.equals(project) || ALL_FILTER.equals(project)) {
+      project = null;
+    }
+
+    if (EMPTY_FILTER.equals(context) || ALL_FILTER.equals(context)) {
+      context = null;
+    }
+
+    String queryString = "SELECT * FROM todos";
+
+    boolean hasFilter = false;
+    if (ownerName != null){
+      Optional<Owner> owner = ownerRepository.findFirstByName(ownerName);
+      if (owner.isPresent()){
+        queryString = queryString + " WHERE " + getFilterString("owner_id", owner.get().getId().toString());
+        hasFilter = true;
+      } else {
+        // TODO : handle error case here
+      }
+    }
+    if (project != null){
+      queryString = queryString + (hasFilter ? " AND " : " WHERE ") + getFilterString("project", project);
+      hasFilter = true;
+    }
+    if (context != null){
+      queryString = queryString + (hasFilter ? " AND " : " WHERE ") + getFilterString("context", context);
+    }
+
+    Query query = entityManager.createNativeQuery(queryString , Todo.class);
+    List<Todo> result = query.getResultList();
+    return result;
+  }
+
+  private String getFilterString(String field, String match){
+    return field + " = '" + match + "'";
   }
 
   @Override

@@ -7,7 +7,8 @@ import com.task.todo.models.Todo;
 import java.util.List;
 
 public interface TodoService {
-  List<Todo> getAllTodo();
+  String getAllFilter();
+  List<Todo> getFilteredTodos(String owner, String project, String context);
   Todo getTodo(Long id);
   void saveTodo(Todo todo);
   Iterable<Owner> getOwners();

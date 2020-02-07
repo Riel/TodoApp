@@ -11,6 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -21,8 +24,6 @@ import java.util.stream.Collectors;
 public class TodoController {
 
   private TodoService todoService;
-  private final String ALL_FILTER = "Select all";
-  private final String EMPTY_FILTER = "0";
 
 
   @Autowired
@@ -36,59 +37,27 @@ public class TodoController {
                             @RequestParam (required = false) String project,
                             @RequestParam (required = false) String context){
 
-    if (EMPTY_FILTER.equals(owner) || ALL_FILTER.equals(owner)) {
-      owner = null;
-    }
+    List<Todo> filteredTodos = todoService.getFilteredTodos(owner, project, context);
+    model.addAttribute("todos", filteredTodos);
 
-    if (EMPTY_FILTER.equals(project) || ALL_FILTER.equals(project)) {
-      project = null;
-    }
-
-    if (EMPTY_FILTER.equals(context) || ALL_FILTER.equals(context)) {
-      context = null;
-    }
-
-    String finalOwner = owner;
-    String finalProject = project;
-    String finalContext = context;
-
-    boolean hasOwner = owner!=null;
-    boolean hasProject = project!=null;
-    boolean hasContext = context!=null;
-
-    List<Todo> allTodos = todoService.getAllTodo();
-
-    if(hasOwner) {
-      allTodos = allTodos.stream().filter(t -> t.getOwner().getName().equals(finalOwner)).collect(Collectors.toList());
-    }
-    if(hasProject) {
-      allTodos = allTodos.stream().filter(t -> t.getProject().equals(finalProject)).collect(Collectors.toList());
-    }
-    if(hasContext) {
-      allTodos = allTodos.stream().filter(t -> t.getContext().equals(finalContext)).collect(Collectors.toList());
-    }
-
-    allTodos = allTodos.stream().sorted().collect(Collectors.toList());
-    model.addAttribute("todos", allTodos);
-
-
+    // Todo: move this bloct to service:
     List<String> ownerNames = new ArrayList();
     todoService.getOwners().forEach(o -> ownerNames.add(o.getName()));
-    ownerNames.add(ALL_FILTER);
+    ownerNames.add(todoService.getAllFilter());
     model.addAttribute("owners", ownerNames);
     List<String> projectNames = new ArrayList<>();
     todoService.getProjects().forEach(p->projectNames.add(p));
-    projectNames.add(ALL_FILTER);
+    projectNames.add(todoService.getAllFilter());
     model.addAttribute("projects", projectNames);
     List<String> contextNames = new ArrayList<>();
     todoService.getContexts().forEach(c->contextNames.add(c));
-    contextNames.add(ALL_FILTER);
+    contextNames.add(todoService.getAllFilter());
     model.addAttribute("contexts", contextNames);
 
     model.addAttribute("selectedOwner", owner);
     model.addAttribute("selectedProject", project);
     model.addAttribute("selectedContext", context);
-    model.addAttribute("items", allTodos.size());
+    model.addAttribute("items", filteredTodos.size());
 
     return "main";
   }
