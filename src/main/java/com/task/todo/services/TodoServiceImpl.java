@@ -104,6 +104,27 @@ public class TodoServiceImpl implements TodoService {
     return ownerRepository.findAll();
   }
 
+  public List<String> getOwnerNames(){
+    List<String> ownerNames = new ArrayList();
+    getOwners().forEach(o -> ownerNames.add(o.getName()));
+    ownerNames.add(getAllFilter());
+    return ownerNames;
+  }
+
+  public List<String> getProjectNames(){
+    List<String> projectNames = new ArrayList<>();
+    getProjects().forEach(p->projectNames.add(p));
+    projectNames.add(getAllFilter());
+    return projectNames;
+  }
+
+  public List<String> getContextNames(){
+    List<String> contextNames = new ArrayList<>();
+    getContexts().forEach(c->contextNames.add(c));
+    contextNames.add(getAllFilter());
+    return contextNames;
+  }
+
   public List<String> getPriorities (){
     return Arrays.stream(Priority.values()).map(p -> p.toString()).collect(Collectors.toList());
   }

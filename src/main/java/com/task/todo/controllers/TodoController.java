@@ -10,15 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 public class TodoController {
@@ -40,19 +35,9 @@ public class TodoController {
     List<Todo> filteredTodos = todoService.getFilteredTodos(owner, project, context);
     model.addAttribute("todos", filteredTodos);
 
-    // Todo: move this bloct to service:
-    List<String> ownerNames = new ArrayList();
-    todoService.getOwners().forEach(o -> ownerNames.add(o.getName()));
-    ownerNames.add(todoService.getAllFilter());
-    model.addAttribute("owners", ownerNames);
-    List<String> projectNames = new ArrayList<>();
-    todoService.getProjects().forEach(p->projectNames.add(p));
-    projectNames.add(todoService.getAllFilter());
-    model.addAttribute("projects", projectNames);
-    List<String> contextNames = new ArrayList<>();
-    todoService.getContexts().forEach(c->contextNames.add(c));
-    contextNames.add(todoService.getAllFilter());
-    model.addAttribute("contexts", contextNames);
+    model.addAttribute("owners", todoService.getOwnerNames());
+    model.addAttribute("projects", todoService.getProjectNames());
+    model.addAttribute("contexts", todoService.getContextNames());
 
     model.addAttribute("selectedOwner", owner);
     model.addAttribute("selectedProject", project);
@@ -106,12 +91,15 @@ public class TodoController {
     return getMainPage(model,owner, project,context);
   }
 
-  @RequestMapping(path = "/todo/{id}/done", method = RequestMethod.POST)
-  public String completeTodo(@PathVariable Long id) {
+  @RequestMapping(path = "/todo/id/{id}/owner/{owner}/project/{project}/context/{context}/done", method = RequestMethod.GET)
+  public String completeTodo(@PathVariable Long id,
+                             @PathVariable String owner,
+                             @PathVariable String project,
+                             @PathVariable String context, Model model) {
     Todo todo = todoService.getTodo(id);
     todo.setStatus(Status.FINISHED);
     todoService.saveTodo(todo);
-    return "redirect:/";
+    return getMainPage(model,owner, project,context);
   }
 
   @RequestMapping(path = "/settings", method = RequestMethod.GET)

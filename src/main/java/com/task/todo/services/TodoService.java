@@ -9,6 +9,9 @@ import java.util.List;
 public interface TodoService {
   String getAllFilter();
   List<Todo> getFilteredTodos(String owner, String project, String context);
+  List<String> getOwnerNames();
+  List<String> getProjectNames();
+  List<String> getContextNames();
   Todo getTodo(Long id);
   void saveTodo(Todo todo);
   Iterable<Owner> getOwners();
