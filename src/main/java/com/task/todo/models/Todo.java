@@ -151,7 +151,7 @@ public class Todo implements Comparable<Todo> {
   //endregion
 
   public String getDisplayDueDate() {
-    return Utilities.dateToString(dueDate);
+    return dueDate == null ? "-" : Utilities.dateToString(dueDate);
   }
 
   public String getDisplayCreationDate() {

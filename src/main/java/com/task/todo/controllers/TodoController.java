@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import javax.transaction.Transactional;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,7 +69,7 @@ public class TodoController {
 
   // TODO: move to service
   private Todo createEmptyTodo() {
-    Todo todo = new Todo("", "", "", "", LocalDate.now(), Priority.LOW, Status.NOT_STARTED, new Owner("", ""));
+    Todo todo = new Todo("", "", "", "", null, Priority.LOW, Status.NOT_STARTED, new Owner("", ""));
     todo.setId(0L);
     return todo;
   }
