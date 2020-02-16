@@ -79,6 +79,8 @@ public class TodoServiceImpl implements TodoService {
       queryString = queryString + (hasFilter ? " AND " : " WHERE ") + getFilterString("context", context);
     }
 
+    queryString = queryString + " ORDER BY prio";
+
     Query query = entityManager.createNativeQuery(queryString , Todo.class);
     List<Todo> result = query.getResultList();
     return result;
