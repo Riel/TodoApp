@@ -111,6 +111,19 @@
 </form>
 <br>
 
+<form action="#" th:action="@{/settings/showdone}" th:method="post">
+    <div class="form-inline">
+        <input type="checkbox" id="showDone" name="showDone" style="margin-right: 8px" th:checked="${showDone}">
+        <label class="mr-2" style="color: lightgray" for="showDone">Show done</label>
+    </div>
+    <br>
+    <div>
+        <input style="font-size: 13px; display: inline-block"
+               class="btn btn-outline-warning my-0 my-sm0 d-flex justify-content-center btn-sm"
+               type="submit"
+               value="      Save      "/>
+    </div>
+</form>
 
 <script src="/webjars/jquery/3.3.1/jquery.min.js"></script>
 <script src="/webjars/bootstrap/4.3.1/js/bootstrap.bundle.js"></script>

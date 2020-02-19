@@ -77,6 +77,11 @@ public class TodoServiceImpl implements TodoService {
     }
     if (context != null){
       queryString = queryString + (hasFilter ? " AND " : " WHERE ") + getFilterString("context", context);
+      hasFilter = true;
+    }
+    if (!getSettingById(1L).isShowDone()){
+      // TODO: make 4 adaptive
+      queryString = queryString + (hasFilter ? " AND " : " WHERE ") + "status <> 4" ;
     }
 
     queryString = queryString + " ORDER BY prio";

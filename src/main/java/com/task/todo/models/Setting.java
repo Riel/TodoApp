@@ -14,8 +14,9 @@ public class Setting {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   Long id;
 
-  ArrayList<String> contexts = new ArrayList<>();
-  ArrayList<String> projects = new ArrayList<>();
+  private ArrayList<String> contexts = new ArrayList<>();
+  private ArrayList<String> projects = new ArrayList<>();
+  private boolean showDone;
   //endregion
 
   //region Getters & Setters
@@ -25,6 +26,14 @@ public class Setting {
 
   public void setId(Long id) {
     this.id = id;
+  }
+
+  public boolean isShowDone() {
+    return showDone;
+  }
+
+  public void setShowDone(boolean showDone) {
+    this.showDone = showDone;
   }
 
   public ArrayList<String> getContexts() {

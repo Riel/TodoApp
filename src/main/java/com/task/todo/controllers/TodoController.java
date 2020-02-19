@@ -109,6 +109,7 @@ public class TodoController {
     model.addAttribute("owners", ownerNames);
     model.addAttribute("projects", todoService.getProjects());
     model.addAttribute("contexts", todoService.getContexts());
+    model.addAttribute("showDone", todoService.getSettingById(1L).isShowDone());
 
     return "settings";
   }
@@ -169,5 +170,12 @@ public class TodoController {
   public String deleteContext(@PathVariable String context){
     todoService.deleteContext(context);
     return "redirect:/settings";
+  }
+
+  @Transactional
+  @RequestMapping(path = "/settings/showdone", method = RequestMethod.POST)
+  public String changeShowDone(boolean showDone){
+    todoService.getSettingById(1L).setShowDone(showDone);
+    return "redirect:/";
   }
 }
