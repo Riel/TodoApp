@@ -16,7 +16,7 @@ public class Setting {
 
   private ArrayList<String> contexts = new ArrayList<>();
   private ArrayList<String> projects = new ArrayList<>();
-  private boolean showDone;
+  // private boolean showDone;
   //endregion
 
   //region Getters & Setters
@@ -28,13 +28,13 @@ public class Setting {
     this.id = id;
   }
 
-  public boolean isShowDone() {
+  /*public boolean isShowDone() {
     return showDone;
   }
 
   public void setShowDone(boolean showDone) {
     this.showDone = showDone;
-  }
+  }*/
 
   public ArrayList<String> getContexts() {
     return contexts;

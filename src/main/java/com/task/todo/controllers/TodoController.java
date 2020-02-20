@@ -109,7 +109,7 @@ public class TodoController {
     model.addAttribute("owners", ownerNames);
     model.addAttribute("projects", todoService.getProjects());
     model.addAttribute("contexts", todoService.getContexts());
-    model.addAttribute("showDone", todoService.getSettingById(1L).isShowDone());
+    // model.addAttribute("showDone", todoService.getSettingById(1L).isShowDone());
 
     return "settings";
   }
@@ -172,10 +172,10 @@ public class TodoController {
     return "redirect:/settings";
   }
 
-  @Transactional
+  /*@Transactional
   @RequestMapping(path = "/settings/showdone", method = RequestMethod.POST)
   public String changeShowDone(boolean showDone){
     todoService.getSettingById(1L).setShowDone(showDone);
     return "redirect:/";
-  }
+  }*/
 }
