@@ -83,8 +83,8 @@ public class TodoServiceImpl implements TodoService {
       // TODO: make 4 adaptive
       queryString = queryString + (hasFilter ? " AND " : " WHERE ") + "status <> 4" ;
     //}
-
-    queryString = queryString + " ORDER BY prio";
+    
+    queryString = queryString + " ORDER BY prio, CASE WHEN due_date IS NULL THEN 1 ELSE 0 END, due_date;";
 
     Query query = entityManager.createNativeQuery(queryString , Todo.class);
     List<Todo> result = query.getResultList();
