@@ -26,6 +26,8 @@ public class Todo implements Comparable<Todo> {
   private LocalDate creationDate;
   @DateTimeFormat(pattern = "yyyy-MM-dd")
   private LocalDate dueDate;
+  // @DateTimeFormat(pattern = "yyyy-MM-dd")
+  // private LocalDate completionDate; // TODO: getter, setter
   private Priority prio;
   private Status status;
 

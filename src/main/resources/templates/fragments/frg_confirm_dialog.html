@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<body>
+<div th:fragment="delete_todo_dialog">
+    <!--https://getbootstrap.com/docs/3.4/javascript/-->
+    <!--https://www.youtube.com/watch?v=St4-x9Cz04A-->
+    <!--<form action="#" th:action="@{|/todo/${todo.getId()}/delete|}" th:method="delete">-->
+    <div class="modal fade modal-delete" th:id="'myModal'+${todo.getId()}" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-body my-0 my-sm0 bg-dark" style="color: white; font-size: 13px">
+                    Do you really want to delete this task?
+                </div>
+                <div class="modal-footer bg-dark" style="color: white">
+                    <button style="font-size: 13px" type="button"
+                            class="btn my-0 my-sm0 btn-dark" data-dismiss="modal">Cancel
+                    </button>
+                    <!--<input style="font-size: 13px"
+                           class="btn btn-outline-danger my-0 my-sm0 d-flex btn-sm"
+                           type="submit"
+                           value="Delete">-->
+                    <a href="javascript:void(0);"
+                       th:onclick="'javascript:document.location=\'/todo/id/'+${todo.getId()}+'/owner/\'+document.getElementById(\'owner\').value+\'/project/\'+document.getElementById(\'project\').value+\'/context/\'+document.getElementById(\'context\').value+\'/delete\''">
+                        <span class="btn btn-danger" value="delete">Delete</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
