@@ -80,6 +80,12 @@ public class TodoController {
     return "redirect:/";
   }
 
+  @RequestMapping(path="/todo/add-instant", method = RequestMethod.POST)
+  public String addInstantTodo(){
+    // logic needed
+    return "redirect:/";
+  }
+
   @RequestMapping(path = "/todo/id/{id}/owner/{owner}/project/{project}/context/{context}/delete", method = RequestMethod.GET)
   public String deleteTodo(@PathVariable Long id,
                            @PathVariable String owner,
