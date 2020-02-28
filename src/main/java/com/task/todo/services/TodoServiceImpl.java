@@ -30,6 +30,11 @@ public class TodoServiceImpl implements TodoService {
   private final String ALL_FILTER = "Select all";
   private final String EMPTY_FILTER = "0";
 
+  // TODO: remove this
+  // can have this input when no data is set in the settings
+  // make sure one cannot create a t_o_d_o that way
+  private final String NULL_FILTER = "null";
+
   @PersistenceContext
   EntityManager entityManager;
 
@@ -47,15 +52,15 @@ public class TodoServiceImpl implements TodoService {
   @Override
   public List<Todo> getFilteredTodos(String ownerName, String project, String context){
 
-    if (ownerName!=null || EMPTY_FILTER.equals(ownerName) || ALL_FILTER.equals(ownerName)) {
+    if (NULL_FILTER.equals(ownerName) || EMPTY_FILTER.equals(ownerName) || ALL_FILTER.equals(ownerName)) {
       ownerName = null;
     }
 
-    if (project!=null || EMPTY_FILTER.equals(project) || ALL_FILTER.equals(project)) {
+    if (NULL_FILTER.equals(project) || EMPTY_FILTER.equals(project) || ALL_FILTER.equals(project)) {
       project = null;
     }
 
-    if (context!=null || EMPTY_FILTER.equals(context) || ALL_FILTER.equals(context)) {
+    if (NULL_FILTER.equals(context) || EMPTY_FILTER.equals(context) || ALL_FILTER.equals(context)) {
       context = null;
     }
 
@@ -81,7 +86,7 @@ public class TodoServiceImpl implements TodoService {
     }
     //if (!getSettingById(1L).isShowDone()){
     // TODO: make 4 adaptive
-    //queryString = queryString + (hasFilter ? " AND " : " WHERE ") + "status <> 4" ;
+    queryString = queryString + (hasFilter ? " AND " : " WHERE ") + "status <> 4" ;
     //}
 
     queryString = queryString + " ORDER BY prio, CASE WHEN due_date IS NULL THEN 1 ELSE 0 END, due_date;";

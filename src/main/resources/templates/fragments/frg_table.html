@@ -56,26 +56,26 @@
             <td th:style="'padding: 4px;' + (${todo.getStatus().ordinal()} == 4 ? 'color: gray' : 'color: white')"
                 th:text="${todo.getStatus()}"/>
             <td class="text-center my-0 my-sm0" style="padding: 1px 4px">
-                <form action="#" th:method="post">
-                    <input style="font-size: 13px" th:disabled="${todo.getStatus().ordinal()} == 4"
-                           class="btn btn-outline-success my-0 my-sm0 d-flex justify-content-center btn-sm btn-block"
-                           type="button"
-                           th:onclick="'completeTodo('+${todo.getId()}+')'"
-                           value="Done">
-                </form>
+
+                <input style="font-size: 13px" th:disabled="${todo.getStatus().ordinal()} == 4"
+                       class="btn btn-outline-success my-0 my-sm0 d-flex justify-content-center btn-sm btn-block"
+                       type="button"
+                       th:onclick="'completeTodo('+${todo.getId()}+')'"
+                       value="Done">
+
             </td>
             <td class="text-center my-0 my-sm0" style="padding: 1px 4px">
                 <input style="font-size: 13px"
                        class="btn btn-outline-danger my-0 my-sm0 d-flex justify-content-center btn-sm btn-block"
                        data-toggle="modal"
-                       th:data-target="'#myModal'+${todo.getId()}"
+                       data-target="#myModal"
+                       th:data-id="${todo.getId()}"
                        type="button"
                        value="Delete">
-
-                <div th:insert="fragments/frg_confirm_dialog :: delete_todo_dialog"></div>
             </td>
         </tr>
     </table>
+    <div th:insert="fragments/frg_confirm_dialog :: delete_todo_dialog"></div>
 </div>
 </body>
 </html>
