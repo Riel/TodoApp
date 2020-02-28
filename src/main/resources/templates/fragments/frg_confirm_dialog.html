@@ -21,7 +21,7 @@
                            type="submit"
                            value="Delete">-->
                     <a href="javascript:void(0);"
-                       th:onclick="'javascript:document.location=\'/todo/id/'+${todo.getId()}+'/owner/\'+document.getElementById(\'owner\').value+\'/project/\'+document.getElementById(\'project\').value+\'/context/\'+document.getElementById(\'context\').value+\'/delete\''">
+                       th:onclick="'deleteTodo('+${todo.getId()}+')'">
                         <span class="btn btn-danger" value="delete">Delete</span></a>
                 </div>
             </div>

@@ -47,15 +47,15 @@ public class TodoServiceImpl implements TodoService {
   @Override
   public List<Todo> getFilteredTodos(String ownerName, String project, String context){
 
-    if (EMPTY_FILTER.equals(ownerName) || ALL_FILTER.equals(ownerName)) {
+    if (ownerName!=null || EMPTY_FILTER.equals(ownerName) || ALL_FILTER.equals(ownerName)) {
       ownerName = null;
     }
 
-    if (EMPTY_FILTER.equals(project) || ALL_FILTER.equals(project)) {
+    if (project!=null || EMPTY_FILTER.equals(project) || ALL_FILTER.equals(project)) {
       project = null;
     }
 
-    if (EMPTY_FILTER.equals(context) || ALL_FILTER.equals(context)) {
+    if (context!=null || EMPTY_FILTER.equals(context) || ALL_FILTER.equals(context)) {
       context = null;
     }
 
@@ -80,10 +80,10 @@ public class TodoServiceImpl implements TodoService {
       hasFilter = true;
     }
     //if (!getSettingById(1L).isShowDone()){
-      // TODO: make 4 adaptive
-      queryString = queryString + (hasFilter ? " AND " : " WHERE ") + "status <> 4" ;
+    // TODO: make 4 adaptive
+    //queryString = queryString + (hasFilter ? " AND " : " WHERE ") + "status <> 4" ;
     //}
-    
+
     queryString = queryString + " ORDER BY prio, CASE WHEN due_date IS NULL THEN 1 ELSE 0 END, due_date;";
 
     Query query = entityManager.createNativeQuery(queryString , Todo.class);

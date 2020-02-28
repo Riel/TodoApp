@@ -60,7 +60,7 @@
                     <input style="font-size: 13px" th:disabled="${todo.getStatus().ordinal()} == 4"
                            class="btn btn-outline-success my-0 my-sm0 d-flex justify-content-center btn-sm btn-block"
                            type="button"
-                           th:onclick="'javascript:document.location=\'/todo/id/'+${todo.getId()}+'/owner/\'+document.getElementById(\'owner\').value+\'/project/\'+document.getElementById(\'project\').value+\'/context/\'+document.getElementById(\'context\').value+\'/done\''"
+                           th:onclick="'completeTodo('+${todo.getId()}+')'"
                            value="Done">
                 </form>
             </td>
