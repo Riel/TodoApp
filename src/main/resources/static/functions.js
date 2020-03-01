@@ -8,6 +8,7 @@ $(document).ready(function(){
 
     //BEGIN NEW SECTION
     document.onscroll = function() {
+        var tdRow=$('table').find('tr').eq(1);
         var scroll = $(window).scrollTop();
         if (scroll >= 50) {
             $("thead").css({
@@ -16,7 +17,6 @@ $(document).ready(function(){
             });
 
             $("th").each(function( index ) {
-                var tdRow=$(this).closest('table').find('tr').eq(1);
                 var width = tdRow.find("td:eq("+index+")").width();
                 $(this).css("width",width);
             });
