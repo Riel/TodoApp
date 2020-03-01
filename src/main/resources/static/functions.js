@@ -5,6 +5,31 @@ $(document).ready(function(){
         var modal = $(this);
         $('#delete-id').attr('onclick', 'deleteTodo('+id+')');
     });
+
+    //BEGIN NEW SECTION
+    document.onscroll = function() {
+        var scroll = $(window).scrollTop();
+        if (scroll >= 50) {
+            $("thead").css({
+                "position": "fixed",
+                "top": "auto"
+            });
+
+            $("th").each(function( index ) {
+                var tdRow=$(this).closest('table').find('tr').eq(1);
+                var width = tdRow.find("td:eq("+index+")").width();
+                $(this).css("width",width);
+            });
+
+        } else {
+            $("thead").css({
+                "position": "relative",
+                "top": "0px"
+            });
+        }
+    };
+
+//END
 });
 
 
