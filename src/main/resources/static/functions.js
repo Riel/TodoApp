@@ -6,19 +6,23 @@ $(document).ready(function(){
         $('#delete-id').attr('onclick', 'deleteTodo('+id+')');
     });
 
-    //BEGIN NEW SECTION
+//BEGIN NEW SECTION
+    var tdRow=$('table').find('tr').eq(1);
+    var parentWidth = $('thead').width();
+
     document.onscroll = function() {
-        var tdRow=$('table').find('tr').eq(1);
         var scroll = $(window).scrollTop();
+
         if (scroll >= 50) {
             $("thead").css({
                 "position": "fixed",
-                "top": "auto"
+                "top": "68px"
             });
 
             $("th").each(function( index ) {
                 var width = tdRow.find("td:eq("+index+")").width();
-                $(this).css("width",width);
+                var percent = Math.round((100*width/parentWidth)) + '%';
+                $(this).css("width",percent);
             });
 
         } else {
