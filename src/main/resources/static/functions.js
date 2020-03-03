@@ -21,7 +21,8 @@ $(document).ready(function(){
 
             $("th").each(function( index ) {
                 var width = tdRow.find("td:eq("+index+")").width();
-                var percent = Math.round((100*width/parentWidth)) + '%';
+                //var percent = Math.round((100*width/parentWidth)) + '%';
+                var percent = (100*width/parentWidth).toFixed(2) + '%';
                 $(this).css("width",percent);
             });
 
