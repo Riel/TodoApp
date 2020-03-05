@@ -8,14 +8,14 @@ $(document).ready(function(){
 
 //BEGIN NEW SECTION
     var tdRow=$('table').find('tr').eq(1);
-
+    
     document.onscroll = function() {
         var scroll = $(window).scrollTop();
         if (scroll >= 50) {
-
             $("thead").css({
                 "position": "fixed",
-                "top": "68px"
+                "top": "68px",
+                "transition": "all 0.5s ease-out"
             });
 
             $("th").each(function( index ) {
