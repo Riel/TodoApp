@@ -12,12 +12,18 @@
     <H3 style="color: lightgray">Add todo</H3>
 </div>
 
-<form class="form-dark" action="#" th:action="@{|/todo/add|}" method="post" th:object="${todo}">
+<form class="form-dark" action="#" id="add-form" th:action="@{|/todo/add|}" method="post" th:object="${todo}">
     <table style="table-layout: auto" >
         <tbody style="display: table; width: 100%">
         <tr>
             <td><label class="mr-2" for="title" style="color: lightgray">Title: </label></td>
-            <td><input placeholder="... add title" style="width: 300%" type="text" id="title" th:field="*{title}" required autofocus></td>
+            <td><input placeholder="... add title" style="width: 300%" type="text" id="title" th:field="*{title}" required autofocus>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><a style="font-size: 13px; text-align: center; width: 300%" class="btn btn-outline-warning my-0 my-sm0 d-flex btn-sm"
+                   href="#" onclick="javascript:addInstant()">Add instant</a></td>
         </tr>
         <tr>
             <td><label class="mr-2" style="color: lightgray" for="description">Description: </label></td>
@@ -69,7 +75,7 @@
             <td><label class="mr-2" style="color: lightgray" for="date">Due date: </label></td>
             <td><input type="date" id="date" th:field="*{dueDate}"
                        placeholder="yyyy.mm.dd." pattern="\d{4}/\d{2}/\d{2}"
-                       ></td>
+            ></td>
         </tr>
         <tr>
             <td><label class="mr-2" style="color: lightgray" >Priority: </label></td>
@@ -95,11 +101,12 @@
     </table>
 
     <div>
-        <input class="col-lg-1 btn btn-warning mt-3" style="margin-right: 20px" type="submit" value="Save">
+        <input id="add-todo" class="col-lg-1 btn btn-warning mt-3" style="margin-right: 20px" type="submit" value="Save">
         <a class="col-lg-1 btn btn-warning mt-3" style="background-color: gray; border-color: gray; text-decoration: none; color: white" th:href="'/'">Cancel</a>
     </div>
 </form>
 <script src="/webjars/jquery/3.3.1/jquery.min.js"></script>
 <script src="/webjars/bootstrap/4.3.1/js/bootstrap.bundle.js"></script>
+<script src="/js/addFunctions.js"></script>
 </body>
 </html>

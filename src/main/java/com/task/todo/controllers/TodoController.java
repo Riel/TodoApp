@@ -81,7 +81,9 @@ public class TodoController {
   }
 
   @RequestMapping(path="/todo/add-instant", method = RequestMethod.POST)
-  public String addInstantTodo(){
+  public String addInstantTodo(@ModelAttribute Todo todo){
+    String title = todo.getTitle();
+    System.out.println("********* title: "+title);
     // logic needed
     return "redirect:/";
   }
