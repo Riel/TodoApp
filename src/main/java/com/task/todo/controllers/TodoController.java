@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,10 +82,13 @@ public class TodoController {
   }
 
   @RequestMapping(path="/todo/add-instant", method = RequestMethod.POST)
-  public String addInstantTodo(@ModelAttribute Todo todo){
-    String title = todo.getTitle();
-    System.out.println("********* title: "+title);
-    // logic needed
+  public String addInstantTodo(String title){
+    // TODO: move this logic to service
+    List<Owner> owners = new ArrayList();
+    todoService.getOwners().forEach(o -> owners.add(o));
+    Todo instantTodo = new Todo(title, "", "not set", "not set", LocalDate.now(), Priority.MUST, Status.NOT_STARTED, owners.get(0));
+
+    todoService.saveTodo(instantTodo);
     return "redirect:/";
   }
 
