@@ -16,6 +16,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimeZone;
 
 @SpringBootApplication
 public class TodoApplication implements CommandLineRunner {
@@ -38,6 +39,7 @@ public class TodoApplication implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
+    TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
     //initializeDatabase();
   }
 
