@@ -85,8 +85,7 @@ public class TodoServiceImpl implements TodoService {
       hasFilter = true;
     }
     //if (!getSettingById(1L).isShowDone()){
-    // TODO: make 4 adaptive
-    queryString = queryString + (hasFilter ? " AND " : " WHERE ") + "status <> 4" ;
+      queryString = queryString + (hasFilter ? " AND " : " WHERE ") + "status <> " + Status.FINISHED.ordinal() ;
     //}
 
     queryString = queryString + " ORDER BY CASE WHEN due_date IS NULL THEN 1 ELSE 0 END, due_date, prio;";
