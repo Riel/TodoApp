@@ -89,7 +89,7 @@ public class Todo implements Comparable<Todo> {
   }
 
   public void setLink(String link) {
-    this.link = link.equals("") ? null :link;
+    this.link = link.equals("") ? null : link;
   }
 
   public boolean hasLink() {
@@ -163,17 +163,21 @@ public class Todo implements Comparable<Todo> {
 
   public String getDisplayDueDateColor() {
 
-    if (dueDate == null){
+    if (dueDate == null) {
       return "color: gray";
     }
 
-    Integer daysToFinish = Period.between(dueDate, LocalDate.now()).getDays();
-    if (daysToFinish > 0){            // should be already done
+    Integer daysToFinish = Period.between(LocalDate.now(), dueDate).getDays();
+    System.out.println("Title: " + title);
+    System.out.println("Days: " + daysToFinish);
+    if (daysToFinish < 0) {            // should be already done
       return "color: red";
     } else if (daysToFinish == 0) {   // must be done today
       return "color: orange";
     } else if (daysToFinish == 1) {   // must be done tomorrow
       return "color: yellow";
+    } else if (daysToFinish == 2) {
+      return "color: lime";
     } else {                          // can be done later
       return "color: green";
     }
@@ -181,9 +185,9 @@ public class Todo implements Comparable<Todo> {
 
   @Override
   public int compareTo(Todo o) {
-    if (prio.ordinal() < o.getPrio().ordinal()){
+    if (prio.ordinal() < o.getPrio().ordinal()) {
       return -1;
-    } else if (prio.ordinal() == o.getPrio().ordinal()){
+    } else if (prio.ordinal() == o.getPrio().ordinal()) {
       return 0;
     } else {
       return 1;
