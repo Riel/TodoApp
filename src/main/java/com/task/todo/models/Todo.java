@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.Period;
 
 @Entity
 @Table(name = "todos")
@@ -158,6 +159,19 @@ public class Todo implements Comparable<Todo> {
 
   public String getDisplayCreationDate() {
     return Utilities.dateToString(creationDate);
+  }
+
+  public String getDisplayDueDateColor() {
+    Integer daysToFinish = Period.between(dueDate, LocalDate.now()).getDays();
+    if (daysToFinish > 0){            // should be already done
+      return "color: red";
+    } else if (daysToFinish == 0) {   // must be done today
+      return "color: orange";
+    } else if (daysToFinish == 1) {   // must be done tomorrow
+      return "color: yellow";
+    } else {                          // can be done later
+      return "color: green";
+    }
   }
 
   @Override

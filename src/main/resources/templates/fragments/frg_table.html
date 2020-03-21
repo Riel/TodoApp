@@ -44,8 +44,8 @@
                 th:text="${todo.getProject()}"/>
             <td th:style="'padding: 4px;' + (${todo.getStatus().ordinal()} == 4 ? 'color: gray' : 'color: white')"
                 th:text="${todo.getContext()}"/>
-            <td th:style="'padding: 4px;' + (${todo.getStatus().ordinal()} == 4 ? 'color: gray' : 'color: white')"
-                th:text="${todo.getDisplayDueDate()}"/>
+            <td th:style="'padding: 4px;' + (${todo.getStatus().ordinal()} == 4 ? 'color: gray' : ${todo.getDisplayDueDateColor()})"
+                th:text="${todo.getDisplayDueDate()}" />
             <td th:style="'padding: 4px;' +
                 (${todo.getStatus().ordinal()} == 4 ? 'color: gray;' :
                 (${todo.getPrio().ordinal()} == 0 ? 'color: red' :
