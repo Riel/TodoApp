@@ -162,6 +162,11 @@ public class Todo implements Comparable<Todo> {
   }
 
   public String getDisplayDueDateColor() {
+
+    if (dueDate == null){
+      return "color: gray";
+    }
+
     Integer daysToFinish = Period.between(dueDate, LocalDate.now()).getDays();
     if (daysToFinish > 0){            // should be already done
       return "color: red";
