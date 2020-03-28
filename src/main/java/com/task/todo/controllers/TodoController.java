@@ -20,7 +20,6 @@ public class TodoController {
 
   private TodoService todoService;
 
-
   @Autowired
   public TodoController(TodoService todoService) {
     this.todoService = todoService;
@@ -50,8 +49,14 @@ public class TodoController {
   @RequestMapping(path = "/todo/{id}/edit", method = RequestMethod.GET)
   public String showEditForm(Model model, @PathVariable Long id) {
     Todo todo = todoService.getTodo(id);
+    if(todo.getProject()==null || "not set".equals(todo.getProject())){
+      String title = todo.getTitle();
+      todo = createEmptyTodo();
+      todo.setTitle(title);
+    }
+    model.addAttribute("displayMode", "edit");
     addTodoAttributes(model, todo);
-    return "edit_todo";
+    return "todo";
   }
 
   @RequestMapping(path = "/todo/{id}/edit", method = RequestMethod.POST)
@@ -64,8 +69,9 @@ public class TodoController {
   @RequestMapping(path = "/todo/add", method = RequestMethod.GET)
   public String showAddForm(Model model) {
     Todo todo = createEmptyTodo();
+    model.addAttribute("displayMode", "add");
     addTodoAttributes(model, todo);
-    return "add_todo";
+    return "todo";
   }
 
   // TODO: move to service
@@ -82,14 +88,19 @@ public class TodoController {
   }
 
   @RequestMapping(path="/todo/add-instant", method = RequestMethod.POST)
-  public String addInstantTodo(String title){
+  public String addInstantTodo(String title, Model model){
     // TODO: move this logic to service
     List<Owner> owners = new ArrayList();
     todoService.getOwners().forEach(o -> owners.add(o));
     Todo instantTodo = new Todo(title, "", "not set", "not set", LocalDate.now(), Priority.MUST, Status.NOT_STARTED, owners.get(0));
 
     todoService.saveTodo(instantTodo);
-    return "redirect:/";
+
+    Todo todo = createEmptyTodo();
+    addTodoAttributes(model, todo);
+    model.addAttribute("instantTaskAdded", "ok");
+    model.addAttribute("displayMode", "add");
+    return "todo";
   }
 
   @RequestMapping(path = "/todo/id/{id}/owner/{owner}/project/{project}/context/{context}/delete", method = RequestMethod.GET)
