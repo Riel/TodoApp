@@ -92,12 +92,12 @@
             <td><label class="mr-2" style="color: lightgray" >Priority: </label></td>
             <td><select name="prio" required>
                 <option value="" selected disabled hidden>Select an option</option>
-                <option th:unless="(${displayMode}=='edit' and ${todo.getProject()}=='') or ${displayMode}=='add'"
+                <option th:unless="(${displayMode}=='edit' and ${todo.getIsInstant()}) or ${displayMode}=='add'"
                         th:each="priority : ${priorities}"
                         th:text="${priority}"
                         th:value="${priority.name()}"
                         th:selected="${todo.getPrio().equals(priority)}">
-                <option th:if="(${displayMode}=='edit' and ${todo.getProject()}=='') or ${displayMode}=='add'"
+                <option th:if="(${displayMode}=='edit' and ${todo.getIsInstant()}) or ${displayMode}=='add'"
                         th:each="priority : ${priorities}"
                         th:text="${priority}"
                         th:value="${priority.name()}">
@@ -108,12 +108,12 @@
             <td><label class="mr-2" style="color: lightgray" >Status: </label></td>
             <td><select name="status" required>
                 <option value="" selected disabled hidden>Select an option</option>
-                <option th:unless="(${displayMode}=='edit' and ${todo.getProject()}=='') or ${displayMode}=='add'"
+                <option th:unless="(${displayMode}=='edit' and ${todo.getIsInstant()}) or ${displayMode}=='add'"
                         th:each="status : ${statuses}"
                         th:text="${status}"
                         th:value="${status.name()}"
                         th:selected="${todo.getStatus().equals(status)}">
-                <option th:if="(${displayMode}=='edit' and ${todo.getProject()}=='') or ${displayMode}=='add'"
+                <option th:if="(${displayMode}=='edit' and ${todo.getIsInstant()}) or ${displayMode}=='add'"
                         th:each="status : ${statuses}"
                         th:text="${status}"
                         th:value="${status.name()}">

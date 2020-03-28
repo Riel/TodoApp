@@ -31,6 +31,7 @@ public class Todo implements Comparable<Todo> {
   // private LocalDate completionDate; // TODO: getter, setter
   private Priority prio;
   private Status status;
+  private boolean isInstant;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "owner_id")
@@ -151,6 +152,15 @@ public class Todo implements Comparable<Todo> {
   public void setOwner(Owner owner) {
     this.owner = owner;
   }
+
+  public boolean getIsInstant() {
+    return isInstant;
+  }
+
+  public void setIsInstant(boolean instant) {
+    isInstant = instant;
+  }
+
   //endregion
 
   public String getDisplayDueDate() {

@@ -49,11 +49,12 @@ public class TodoController {
   @RequestMapping(path = "/todo/{id}/edit", method = RequestMethod.GET)
   public String showEditForm(Model model, @PathVariable Long id) {
     Todo todo = todoService.getTodo(id);
-    if(todo.getProject()==null || "not set".equals(todo.getProject())){
+    if(todo.getIsInstant()){
       String title = todo.getTitle();
       todo = createEmptyTodo();
       todo.setTitle(title);
       todo.setId(id);
+      todo.setIsInstant(true);
     }
     model.addAttribute("displayMode", "edit");
     addTodoAttributes(model, todo);
@@ -94,6 +95,7 @@ public class TodoController {
     List<Owner> owners = new ArrayList();
     todoService.getOwners().forEach(o -> owners.add(o));
     Todo instantTodo = new Todo(title, "", "not set", "not set", LocalDate.now(), Priority.MUST, Status.NOT_STARTED, owners.get(0));
+    instantTodo.setIsInstant(true);
 
     todoService.saveTodo(instantTodo);
 
