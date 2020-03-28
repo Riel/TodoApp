@@ -53,6 +53,7 @@ public class TodoController {
       String title = todo.getTitle();
       todo = createEmptyTodo();
       todo.setTitle(title);
+      todo.setId(id);
     }
     model.addAttribute("displayMode", "edit");
     addTodoAttributes(model, todo);
