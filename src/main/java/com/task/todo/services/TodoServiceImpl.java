@@ -96,7 +96,7 @@ public class TodoServiceImpl implements TodoService {
   }
 
   private String getFilterString(String field, String match){
-    return field + " = '" + match + "'";
+    return field + " in ( '" + match + "', 'not set') ";
   }
 
   @Override
