@@ -2,6 +2,7 @@ package com.task.todo.models;
 
 import com.task.todo.enums.Priority;
 import com.task.todo.enums.Status;
+import com.task.todo.utilities.TodoColors;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -161,7 +162,27 @@ public class Todo implements Comparable<Todo> {
     return Utilities.dateToString(creationDate);
   }
 
-  public String getDisplayDueDateColor() {
+  public String getDisplayDueDateColor(){
+    if (dueDate == null) {
+      return TodoColors.GRAY;
+    }
+
+    Integer daysToFinish = Period.between(LocalDate.now(), dueDate).getDays();
+
+    if (daysToFinish < 0) {            // should be already done
+      return TodoColors.RED;
+    } else if (daysToFinish == 0) {   // must be done today
+      return TodoColors.ORANGE;
+    } else if (daysToFinish == 1) {   // must be done tomorrow
+      return TodoColors.YELLOW;
+    } else if (daysToFinish == 2) {   // must be done day after tomorrow
+      return TodoColors.LIME;
+    } else {                          // can be done later
+      return TodoColors.GREEN;
+    }
+  }
+
+  public String getDisplayDueDateColorOld() {
 
     if (dueDate == null) {
       return "color: gray";
@@ -171,16 +192,44 @@ public class Todo implements Comparable<Todo> {
     System.out.println("Title: " + title);
     System.out.println("Days: " + daysToFinish);
     if (daysToFinish < 0) {            // should be already done
-      return "color: red";
+      //return getRGBColorString(220,79,13);
+      //return getRGBColorString(248, 124, 97);
+      //return getRGBColorString(159, 62, 16);
+      //return getRGBColorString(71, 7, 42);
+      //return getRGBColorString(255, 71, 22);
+      return getRGBColorString(255, 105, 97);
+      //return "color: red";
     } else if (daysToFinish == 0) {   // must be done today
-      return "color: orange";
+      //return getRGBColorString(236,152,21);
+      //return getRGBColorString(244, 193, 114);
+      //return getRGBColorString(209, 149, 55);
+      //return getRGBColorString(141, 94, 3);
+      //return getRGBColorString(255,165,0);
+      return getRGBColorString(255, 179, 85);
+      //return "color: orange";
     } else if (daysToFinish == 1) {   // must be done tomorrow
-      return "color: yellow";
+      //return getRGBColorString(249,219,68);
+      //return getRGBColorString(248, 229, 134);
+      //return getRGBColorString(216,215,83);
+      //return getRGBColorString(216, 215, 83);
+      //return getRGBColorString(255, 246, 80);
+      return getRGBColorString(253, 253, 150);
+      //return "color: yellow";
     } else if (daysToFinish == 2) {
-      return "color: lime";
+      //return getRGBColorString(165,212,83);
+      //return getRGBColorString(210, 241, 154);
+      //return getRGBColorString(103, 123, 20);
+      //return getRGBColorString(25, 255, 200);
+      //return getRGBColorString(211, 221, 24);
+      return getRGBColorString(207, 240, 124);
+      //return "color: lime";
     } else {                          // can be done later
       return "color: green";
     }
+  }
+
+  public String getRGBColorString(int r, int g, int b){
+    return "color: rgb(" + r + "," + g + "," + b + ")";
   }
 
   @Override
