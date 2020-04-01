@@ -162,8 +162,28 @@ public class Todo implements Comparable<Todo> {
     return Utilities.dateToString(creationDate);
   }
 
+  public String getDisplayContextColor(){
+    if(status.ordinal() == 4){
+      return TodoColors.GRAY;
+    } else if (project == null || "not set".equals(project)) {
+      return TodoColors.RED;
+    }
+
+    return TodoColors.WHITE;
+  }
+
+  public String getDisplayProjectColor(){
+    if(status.ordinal() == 4){
+      return TodoColors.GRAY;
+    } else if (project == null || "not set".equals(project)) {
+      return TodoColors.RED;
+    }
+
+    return TodoColors.WHITE;
+  }
+
   public String getDisplayDueDateColor(){
-    if (dueDate == null) {
+    if (dueDate == null || status.ordinal() == 4) {
       return TodoColors.GRAY;
     }
 

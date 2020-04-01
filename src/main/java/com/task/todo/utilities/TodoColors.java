@@ -7,4 +7,5 @@ public class TodoColors {
   public static final String LIME = "color: rgb(165,212,83)";
   public static final String GREEN = "color: green";
   public static final String GRAY = "color: gray";
+  public static final String WHITE = "color: white";
 }

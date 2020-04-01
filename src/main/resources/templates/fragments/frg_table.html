@@ -40,11 +40,11 @@
             <td th:style="'padding: 4px;' + (${todo.getStatus().ordinal()} == 4 ? 'color: gray' :
              (${todo.getOwner().getId()} == 2 ? 'color:#A6F8DD' : 'color: white'))"
                 th:text="${todo.getOwner().getName()}"/>
-            <td th:style="'padding: 4px;' + (${todo.getStatus().ordinal()} == 4 ? 'color: gray' : 'color: white')"
+            <td th:style="'padding: 4px;' + ${todo.getDisplayProjectColor()}"
                 th:text="${todo.getProject()}"/>
-            <td th:style="'padding: 4px;' + (${todo.getStatus().ordinal()} == 4 ? 'color: gray' : 'color: white')"
+            <td th:style="'padding: 4px;' + ${todo.getDisplayContextColor()}"
                 th:text="${todo.getContext()}"/>
-            <td th:style="'padding: 4px;' + (${todo.getStatus().ordinal()} == 4 ? 'color: gray' : ${todo.getDisplayDueDateColor()})"
+            <td th:style="'padding: 4px;' + ${todo.getDisplayDueDateColor()}"
                 th:text="${todo.getDisplayDueDate()}" />
             <td th:style="'padding: 4px;' +
                 (${todo.getStatus().ordinal()} == 4 ? 'color: gray;' :
