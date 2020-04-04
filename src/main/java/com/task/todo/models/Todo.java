@@ -166,7 +166,7 @@ public class Todo implements Comparable<Todo> {
     if(status.ordinal() == 4){
       return TodoColors.GRAY;
     } else if (project == null || "not set".equals(project)) {
-      return TodoColors.RED;
+      return TodoColors.BUTTON_RED;
     }
 
     return TodoColors.WHITE;
@@ -176,7 +176,7 @@ public class Todo implements Comparable<Todo> {
     if(status.ordinal() == 4){
       return TodoColors.GRAY;
     } else if (project == null || "not set".equals(project)) {
-      return TodoColors.RED;
+      return TodoColors.BUTTON_RED;
     }
 
     return TodoColors.WHITE;
