@@ -202,6 +202,19 @@ public class Todo implements Comparable<Todo> {
     }
   }
 
+  public String getDisplayPrioColor(){
+    if(prio.ordinal() == 0){
+      return TodoColors.BUTTON_RED;
+    } else if (prio.ordinal() == 1){
+      return TodoColors.BUTTON_ORANGE;
+    } else if (prio.ordinal() == 2){
+      return TodoColors.BUTTON_YELLOW;
+    } else if (prio.ordinal() == 3){
+      return TodoColors.BUTTON_GREEN;
+    } else {
+      return TodoColors.GRAY;
+    }
+  }
   @Override
   public int compareTo(Todo o) {
     if (prio.ordinal() < o.getPrio().ordinal()) {

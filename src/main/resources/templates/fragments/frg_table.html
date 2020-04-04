@@ -46,23 +46,16 @@
                 th:text="${todo.getContext()}"/>
             <td th:style="'padding: 4px;' + ${todo.getDisplayDueDateColor()}"
                 th:text="${todo.getDisplayDueDate()}" />
-            <td th:style="'padding: 4px;' +
-                (${todo.getStatus().ordinal()} == 4 ? 'color: gray;' :
-                (${todo.getPrio().ordinal()} == 0 ? 'color: red' :
-                (${todo.getPrio().ordinal()} == 1 ? 'color: orange' :
-                (${todo.getPrio().ordinal()} == 2 ? 'color: yellow' :
-                (${todo.getPrio().ordinal()} == 3 ? 'color: lime' : 'color: gray')))))"
+            <td th:style="'padding: 4px;' + ${todo.getDisplayPrioColor()}"
                 th:text="${todo.getPrio()}"/>
             <td th:style="'padding: 4px;' + (${todo.getStatus().ordinal()} == 4 ? 'color: gray' : 'color: white')"
                 th:text="${todo.getStatus()}"/>
             <td class="text-center my-0 my-sm0" style="padding: 1px 4px">
-
                 <input style="font-size: 13px" th:disabled="${todo.getStatus().ordinal()} == 4"
                        class="btn btn-outline-success my-0 my-sm0 d-flex justify-content-center btn-sm btn-block"
                        type="button"
                        th:onclick="'completeTodo('+${todo.getId()}+')'"
                        value="Done">
-
             </td>
             <td class="text-center my-0 my-sm0" style="padding: 1px 4px">
                 <input style="font-size: 13px"
